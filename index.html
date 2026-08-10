@@ -1,47 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>SPARI HUT RI 81</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#b91c1c,#111827);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-.box{background:#ffffff22;backdrop-filter:blur(20px);padding:30px;border-radius:25px;color:white;max-width:450px;width:100%}
-.card{background:white;color:#111;padding:20px;border-radius:20px}
-input,select,button{width:100%;padding:14px;margin:8px 0;border-radius:12px}
-button{background:#dc2626;color:white;border:0;font-weight:bold}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#b91c1c,#111827)}
+.container{width:100%;max-width:520px}
+.header{text-align:center;color:white;margin-bottom:20px}
+.header h1{font-size:34px;margin:0}
+.card{background:#ffffff20;backdrop-filter:blur(20px);padding:25px;border-radius:28px}
+.form{background:white;padding:25px;border-radius:22px}
+input,select,button{width:100%;height:52px;margin:8px 0 15px;border-radius:14px;padding:0 15px}
+input,select{border:1px solid #ddd}
+button{background:#dc2626;color:white;border:0;font-weight:bold;font-size:16px}
 </style>
 </head>
 <body>
-<div class="box">
+<div class='container'>
+<div class='header'>
 <h1>🇮🇩 SPARI HUT RI 81</h1>
-<p>Registrasi Perlombaan</p>
-<div class="card">
-<form id="form">
-<input id="id" placeholder="ID AEON" required>
-<input id="nama" placeholder="Nama Peserta" required>
-<input id="divisi" placeholder="Divisi" required>
-<input id="hp" placeholder="No WhatsApp" required>
-<select id="lomba">
-<option>Futsal</option>
+<p>Registrasi Perlombaan AEON People</p>
+</div>
+<div class='card'>
+<div class='form'>
+<form id='form'>
+<input id='id' placeholder='ID AEON' required>
+<input id='nama' placeholder='Nama Peserta' required>
+<input id='divisi' placeholder='Divisi' required>
+<input id='hp' placeholder='No WhatsApp' required>
+<select id='lomba'>
+<option>Turnamen Futsal</option>
+<option>E-Sport PS4 eFootball</option>
 <option>Basket 3x3</option>
-<option>Badminton</option>
-<option>E-Sport</option>
+<option>Badminton Ganda</option>
+<option>Badminton Single</option>
 <option>Lomba Nyanyi</option>
+<option>Lari 100 Meter Pria</option>
+<option>Lari 50 Meter Perempuan</option>
 </select>
-<button>DAFTAR</button>
+<button>DAFTAR SEKARANG</button>
 </form>
 </div>
 </div>
+</div>
 <script>
-const API="https://script.google.com/macros/s/AKfycbxeqdCTGwrcWaMvvB3sXOAknX5bAJo2ee4YDIrc5MshT3AQzEoDqRh1nQcRVshccOJc/exec";
-form.onsubmit=async e=>{
+const API='GANTI_URL_APPSCRIPT';
+document.getElementById('form').onsubmit=async(e)=>{
 e.preventDefault();
-let kode="SPARI-"+Date.now();
-await fetch(API,{method:"POST",body:JSON.stringify({
-kode,id:id.value,nama:nama.value,divisi:divisi.value,hp:hp.value,lomba:lomba.value
+let kode='SPARI-'+Date.now();
+await fetch(API,{method:'POST',body:JSON.stringify({
+kode,id:document.getElementById('id').value,
+nama:document.getElementById('nama').value,
+divisi:document.getElementById('divisi').value,
+hp:document.getElementById('hp').value,
+lomba:document.getElementById('lomba').value
 })});
-alert("Berhasil! Kode "+kode);
-form.reset();
+alert('Registrasi berhasil\nKode: '+kode);
+e.target.reset();
 }
 </script>
 </body>
