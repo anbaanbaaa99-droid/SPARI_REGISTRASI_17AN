@@ -1,0 +1,11 @@
+ADMIN DASHBOARD
+
+File ini adalah panduan pengembangan dashboard panitia.
+
+Fitur yang disiapkan:
+- Login panitia
+- Data peserta Google Sheet
+- Filter lomba
+- Validasi pembayaran
+- Export Excel
+- Cetak peserta
