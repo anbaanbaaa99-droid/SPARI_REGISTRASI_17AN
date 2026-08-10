@@ -4,564 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#b91c1c">
-<title>Registrasi Lomba SPARI HUT RI 81</title>
-<style>
-:root{
-  --red:#dc2626;
-  --red2:#b91c1c;
-  --red3:#7f1d1d;
-  --ink:#111827;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --soft:#f8fafc;
-  --white:#fff;
-  --green:#15803d;
-  --amber:#b45309;
-  --shadow:0 24px 70px rgba(17,24,39,.18);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 10% 10%, rgba(255,255,255,.14), transparent 24%),
-    radial-gradient(circle at 85% 15%, rgba(239,68,68,.30), transparent 24%),
-    linear-gradient(145deg,#7f1d1d 0%,#b91c1c 35%,#31202a 68%,#111827 100%);
-}
-body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;
-  background-image:
-    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.06) 1px, transparent 1px);
-  background-size:42px 42px;
-}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.shell{
-  width:min(1180px,100%);
-  margin:auto;
-  padding:28px 22px 60px;
-  position:relative;
-}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  color:#fff;margin-bottom:28px;
-}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-logo{
-  width:50px;height:50px;border-radius:16px;background:#fff;color:var(--red2);
-  display:grid;place-items:center;font-size:18px;font-weight:1000;
-  box-shadow:0 12px 30px rgba(0,0,0,.2);
-}
-.brand strong{display:block;font-size:14px;letter-spacing:.02em}
-.brand small{display:block;font-size:11px;color:rgba(255,255,255,.64);margin-top:3px}
-.top-badge{
-  padding:9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.10);backdrop-filter:blur(12px);
-  text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:900;
-}
-.main-grid{
-  display:grid;
-  grid-template-columns:minmax(0,.8fr) minmax(520px,1.2fr);
-  gap:30px;align-items:start;
-}
-.intro{color:#fff;padding:34px 6px 0 0;position:sticky;top:20px}
-.kicker{
-  display:inline-flex;align-items:center;gap:9px;padding:8px 11px;
-  border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.08);
-  border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase
-}
-.kicker i{display:block;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.12)}
-.intro h1{
-  margin:22px 0 16px;font-size:clamp(44px,5vw,70px);line-height:.98;
-  letter-spacing:-.055em;max-width:650px
-}
-.intro p{margin:0;color:rgba(255,255,255,.74);font-size:16px;line-height:1.7;max-width:560px}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
-.info-card{
-  border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);
-  backdrop-filter:blur(12px);padding:16px;border-radius:18px
-}
-.info-card strong{display:block;font-size:15px}.info-card span{display:block;margin-top:5px;color:rgba(255,255,255,.62);font-size:11px;line-height:1.45}
-.form-card{
-  border-radius:30px;overflow:hidden;background:rgba(255,255,255,.97);
-  border:1px solid rgba(255,255,255,.5);box-shadow:var(--shadow)
-}
-.form-head{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
-  padding:27px 28px 20px;border-bottom:1px solid var(--line)
-}
-.form-head h2{margin:0 0 7px;font-size:22px;letter-spacing:-.02em}
-.form-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
-.step{
-  width:44px;height:44px;min-width:44px;border-radius:14px;background:#fee2e2;color:#b91c1c;
-  display:grid;place-items:center;font-weight:1000
-}
-form{padding:24px 28px 28px}
-.section-title{
-  display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;margin:2px 0 15px;color:#333a46
-}
-.section-title:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.field{margin-bottom:16px}
-.field label{display:block;margin-bottom:7px;font-size:11px;font-weight:850;color:#444b58}
-.field input,.field select{
-  width:100%;height:51px;border-radius:13px;border:1px solid #d9dce2;background:#fff;
-  padding:0 14px;outline:none;color:#111827;transition:.18s
-}
-.field input:focus,.field select:focus{
-  border-color:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.10)
-}
-.field input::placeholder{color:#a1a6af}
-.event-box{
-  display:none;border-radius:16px;padding:15px 16px;margin:3px 0 18px;
-  border:1px solid #f0c6ca;background:#fff7f7
-}
-.event-box.show{display:block}
-.event-top{display:flex;justify-content:space-between;gap:14px;align-items:center}
-.event-name{font-size:12px;font-weight:950}
-.event-fee{font-size:13px;font-weight:1000;color:#b91c1c;white-space:nowrap}
-.event-desc{margin-top:7px;color:#6c7280;font-size:11px;line-height:1.55}
-.team-panel{
-  display:none;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:18px
-}
-.team-panel.show{display:block}
-.team-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
-.team-title b{font-size:12px}.team-title span{font-size:10px;color:#7c8491}
-.member-row{display:grid;grid-template-columns:.65fr 1fr .8fr auto;gap:7px;margin-top:8px}
-.member-row input{width:100%;height:42px;border:1px solid #d7dbe2;border-radius:10px;padding:0 10px;outline:none;min-width:0}
-.member-row button{width:42px;height:42px;border:0;border-radius:10px;background:#fee2e2;color:#b91c1c;font-weight:1000}
-.add-member{
-  height:41px;margin-top:11px;border-radius:11px;border:1px dashed #efb5ba;background:#fff;color:#b91c1c;
-  padding:0 13px;font-size:11px;font-weight:900
-}
-.payment{
-  display:none;border:1px solid #f0ddb0;background:#fff9ed;border-radius:16px;padding:15px;margin-bottom:17px
-}
-.payment.show{display:block}
-.payment b{display:block;font-size:12px;margin-bottom:5px}
-.payment span{display:block;font-size:11px;color:#795f2f;line-height:1.55}
-.agree{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:#616875;line-height:1.5;margin:4px 0 17px}
-.agree input{margin-top:2px;accent-color:var(--red)}
-.submit{
-  width:100%;height:55px;border:0;border-radius:15px;color:#fff;font-weight:950;
-  background:linear-gradient(100deg,#ef4444,#dc2626 55%,#991b1b);
-  box-shadow:0 13px 28px rgba(185,28,28,.23);display:flex;align-items:center;justify-content:center;gap:9px;
-  transition:.16s
-}
-.submit:hover{transform:translateY(-1px)}.submit:disabled{opacity:.62;cursor:not-allowed;transform:none}
-.spinner{
-  width:17px;height:17px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
-  display:none;animation:spin .7s linear infinite
-}
-.submit.loading .spinner{display:block}.submit.loading .label{display:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-.footer{text-align:center;color:rgba(255,255,255,.55);font-size:10px;margin-top:20px}
-.modal{
-  position:fixed;inset:0;background:rgba(7,10,17,.68);backdrop-filter:blur(9px);
-  display:none;align-items:center;justify-content:center;padding:20px;z-index:90
-}
-.modal.show{display:flex}
-.modal-card{
-  width:min(430px,100%);background:#fff;border-radius:26px;padding:27px;box-shadow:0 30px 100px rgba(0,0,0,.34);text-align:center
-}
-.success-icon{
-  width:66px;height:66px;border-radius:50%;margin:0 auto 16px;background:#dcfce7;color:#15803d;
-  display:grid;place-items:center;font-size:29px;font-weight:1000
-}
-.modal-card h3{margin:0 0 7px;font-size:23px}.modal-card p{margin:0;color:#6b7280;font-size:12px;line-height:1.55}
-.code{
-  margin:17px 0;padding:14px;border-radius:14px;background:#f7f7f8;border:1px dashed #c8ccd3;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:950;letter-spacing:.06em
-}
-.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
-.modal-actions button{height:45px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-weight:850}
-.modal-actions .primary{border:0;background:#b91c1c;color:#fff}
-.toast{
-  position:fixed;right:18px;bottom:18px;max-width:340px;padding:12px 14px;border-radius:12px;
-  background:#111827;color:#fff;font-size:11px;box-shadow:0 18px 50px rgba(0,0,0,.28);
-  opacity:0;transform:translateY(10px);transition:.18s;pointer-events:none;z-index:110
-}
-.toast.show{opacity:1;transform:none}
-@media(max-width:920px){
-  .main-grid{grid-template-columns:1fr}
-  .intro{position:static;padding:10px 2px 0}
-  .intro h1{font-size:48px}
-}
-@media(max-width:600px){
-  .shell{padding:16px 12px 42px}
-  .topbar{margin-bottom:14px}.top-badge{display:none}
-  .brand small{font-size:9px}
-  .intro h1{font-size:40px;margin-top:18px}.intro p{font-size:14px}
-  .info-grid{grid-template-columns:1fr 1fr}.info-card{padding:13px}
-  .form-card{border-radius:23px}.form-head{padding:21px 19px 17px}form{padding:19px}
-  .grid2{grid-template-columns:1fr;gap:0}
-  .member-row{grid-template-columns:1fr 1fr}
-  .member-row input:nth-child(3){grid-column:1}
-  .member-row button{grid-column:2;justify-self:end}
-}
-</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/icon.svg">
+<link rel="stylesheet" href="./assets/app.css">
+<title>Registrasi SPARI HUT RI 81</title>
 </head>
-<body>
-<div class="shell">
-  <div class="topbar">
+<body class="bg-public">
+<div class="public-shell">
+  <header class="public-top">
     <div class="brand">
       <div class="brand-logo">81</div>
-      <div>
-        <strong>SPARI • AEON PEOPLE</strong>
-        <small>Serikat Pekerja AEON Retail Indonesia</small>
-      </div>
+      <div><strong>SPARI • AEON PEOPLE</strong><small>Serikat Pekerja AEON Retail Indonesia</small></div>
     </div>
-    <div class="top-badge">Registrasi Online</div>
-  </div>
+    <nav class="public-nav">
+      <a href="./status.html">Cek Status</a>
+      <a href="./admin.html">Panitia</a>
+    </nav>
+  </header>
 
-  <div class="main-grid">
-    <section class="intro">
+  <main class="public-grid">
+    <section class="public-hero">
       <div class="kicker"><i></i> Perayaan HUT RI ke-81</div>
       <h1>Daftar lomba 17-an tanpa ribet.</h1>
-      <p>Isi satu formulir, pilih cabang lomba, dan data langsung masuk ke panitia. Untuk lomba tim, anggota dapat ditambahkan langsung dari halaman ini.</p>
-
-      <div class="info-grid">
-        <div class="info-card"><strong>13 Nomor Lomba</strong><span>Mengikuti daftar perlombaan pada formulir panitia.</span></div>
-        <div class="info-card"><strong>Google Sheet</strong><span>Data tersimpan terpusat melalui Apps Script.</span></div>
+      <p>Satu formulir untuk seluruh cabang lomba. Data langsung tersimpan ke sistem panitia, kode peserta dibuat otomatis, dan peserta dapat mengecek statusnya kapan saja.</p>
+      <div class="hero-info">
+        <div class="hero-mini"><strong id="heroEventCount">13 Cabang</strong><span>Daftar lomba dikelola langsung oleh panitia.</span></div>
+        <div class="hero-mini"><strong>Realtime</strong><span>Google Apps Script + Google Spreadsheet.</span></div>
       </div>
+      <div class="announcement" id="announcement"></div>
     </section>
 
-    <section class="form-card">
-      <div class="form-head">
-        <div>
-          <h2>Form Registrasi Peserta</h2>
-          <p>Pastikan ID AEON, nama, divisi, dan nomor WhatsApp sesuai data peserta.</p>
-        </div>
-        <div class="step">01</div>
+    <section class="public-card">
+      <div class="card-head">
+        <div><h2>Form Registrasi</h2><p id="registrationState">Memuat status pendaftaran…</p></div>
+        <div class="step-chip">01</div>
       </div>
 
-      <form id="regForm" novalidate>
+      <form id="regForm" class="form-body" novalidate>
         <div class="section-title">Data peserta / penanggung jawab tim</div>
         <div class="grid2">
-          <div class="field">
-            <label>ID AEON *</label>
-            <input id="aeonId" autocomplete="off" placeholder="Contoh: 2507026" required>
-          </div>
-          <div class="field">
-            <label>Nama lengkap *</label>
-            <input id="name" autocomplete="name" placeholder="Nama peserta" required>
-          </div>
-          <div class="field">
-            <label>Divisi *</label>
-            <input id="division" autocomplete="organization" placeholder="Contoh: VMD" required>
-          </div>
-          <div class="field">
-            <label>No. WhatsApp *</label>
-            <input id="phone" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required>
-          </div>
+          <div class="field"><label>ID AEON *</label><input class="control" id="aeonId" autocomplete="off" placeholder="Contoh: 2507026" required></div>
+          <div class="field"><label>Nama lengkap *</label><input class="control" id="name" autocomplete="name" placeholder="Nama peserta" required></div>
+          <div class="field"><label>Divisi *</label><input class="control" id="division" autocomplete="organization" placeholder="Contoh: VMD" required></div>
+          <div class="field"><label>No. WhatsApp *</label><input class="control" id="phone" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required></div>
         </div>
 
         <div class="section-title">Pilih cabang lomba</div>
-        <div class="field">
-          <label>Cabang lomba *</label>
-          <select id="eventId" required>
-            <option value="">— Pilih lomba —</option>
-            <option value="1">1. E-Sports PS4 eFootball</option>
-            <option value="2">2. Turnamen Futsal</option>
-            <option value="3">3. Basket 3x3</option>
-            <option value="4">4. Badminton Ganda Silang</option>
-            <option value="5">5. Badminton Single</option>
-            <option value="6">6. Lomba Nyanyi Single</option>
-            <option value="7">7. Lomba Nyanyi Single</option>
-            <option value="8">8. Lari 100 Meter Pria</option>
-            <option value="9">9. Lari 50 Meter Perempuan</option>
-            <option value="10">10. Memindahkan Kertas Ikan</option>
-            <option value="11">11. Memindahkan Sedotan dengan Mulut & Hidung</option>
-            <option value="12">12. Estafet Bola Menggunakan Stik Balon</option>
-            <option value="13">13. Balap Karung Pakai Helm</option>
-          </select>
-        </div>
+        <div class="field"><label>Cabang lomba *</label><select class="control" id="eventId" required><option value="">Memuat cabang lomba…</option></select></div>
 
-        <div class="event-box" id="eventBox">
-          <div class="event-top">
-            <div class="event-name" id="eventName"></div>
-            <div class="event-fee" id="eventFee"></div>
-          </div>
+        <div class="event-info" id="eventInfo">
+          <div class="event-row"><div class="event-name" id="eventName"></div><div class="event-fee" id="eventFee"></div></div>
           <div class="event-desc" id="eventDesc"></div>
         </div>
 
         <div class="team-panel" id="teamPanel">
-          <div class="field" style="margin-bottom:10px">
-            <label>Nama tim *</label>
-            <input id="teamName" placeholder="Contoh: VMD Merdeka">
-          </div>
-          <div class="team-title">
-            <b>Anggota tambahan</b>
-            <span id="teamRule"></span>
-          </div>
+          <div class="field" style="margin-bottom:10px"><label>Nama tim *</label><input class="control" id="teamName" placeholder="Contoh: VMD Merdeka"></div>
+          <div class="team-head"><b>Anggota tambahan</b><span id="teamRule"></span></div>
           <div id="members"></div>
           <button type="button" class="add-member" id="addMember">+ Tambah anggota</button>
         </div>
 
-        <div class="payment" id="paymentBox">
-          <b>Informasi pembayaran</b>
-          <span id="paymentText"></span>
-        </div>
+        <div class="payment-box" id="paymentBox"><b>Informasi pembayaran</b><span id="paymentText"></span></div>
 
-        <label class="agree">
-          <input type="checkbox" id="agree" required>
-          <span>Saya memastikan seluruh data yang dimasukkan sudah benar dan siap digunakan panitia untuk pendataan lomba.</span>
-        </label>
+        <label class="agree"><input type="checkbox" id="agree" required><span>Saya memastikan seluruh data yang dimasukkan sudah benar dan dapat digunakan panitia untuk pendataan perlombaan.</span></label>
 
-        <button type="submit" class="submit" id="submitBtn">
-          <span class="spinner"></span>
-          <span class="label">Kirim Registrasi →</span>
+        <button type="submit" class="primary-btn" id="submitBtn">
+          <span class="spinner"></span><span class="btn-label">Kirim Registrasi →</span>
         </button>
       </form>
     </section>
-  </div>
-
-  <div class="footer">SPARI • SERIKAT PEKERJA AEON RETAIL INDONESIA • HUT RI KE-81</div>
+  </main>
+  <div class="public-footer">SPARI • SERIKAT PEKERJA AEON RETAIL INDONESIA • HUT RI KE-81</div>
 </div>
 
 <div class="modal" id="successModal">
-  <div class="modal-card">
+  <div class="modal-card modal-center">
     <div class="success-icon">✓</div>
     <h3>Registrasi berhasil</h3>
-    <p>Data sudah diterima panitia. Simpan kode registrasi berikut.</p>
-    <div class="code" id="successCode">-</div>
+    <p>Data telah diterima panitia. Simpan kode dan QR registrasi ini.</p>
+    <div class="code-box" id="successCode">-</div>
+    <div class="qr-wrap" id="successQr"></div>
     <p id="successInfo"></p>
     <div class="modal-actions">
-      <button type="button" id="copyCode">Salin kode</button>
-      <button type="button" class="primary" id="finishBtn">Selesai</button>
+      <button class="secondary-btn" type="button" id="copyCode">Salin kode</button>
+      <button class="primary-btn" type="button" id="openCard"><span class="btn-label">Buka kartu peserta</span></button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-<script src="config.js"></script>
-<script>
-const CFG = window.SPARI_CONFIG || {};
-const $ = id => document.getElementById(id);
-const rupiah = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
-
-const EVENTS = {
-  "1":  {name:"E-Sports PS4 eFootball", fee:15000, type:"personal", desc:"Personal • Seluruh AEON People • Rp15.000 per orang."},
-  "2":  {name:"Turnamen Futsal", fee:100000, type:"team", min:6, max:9, desc:"Department • Minimal 6 peserta dan maksimal 9 peserta dalam 1 tim • Rp100.000 per tim."},
-  "3":  {name:"Basket 3x3", fee:100000, type:"team", min:3, max:4, desc:"Mix personal • Minimal 3 peserta dan maksimal 4 peserta dalam 1 tim • Rp100.000 per tim."},
-  "4":  {name:"Badminton Ganda Silang", fee:20000, type:"team", min:2, max:2, desc:"Personal • Ganda 2 orang • Rp20.000 per tim."},
-  "5":  {name:"Badminton Single", fee:15000, type:"personal", desc:"Personal • Rp15.000 per orang."},
-  "6":  {name:"Lomba Nyanyi Single", fee:0, type:"personal", desc:"Single • Gratis."},
-  "7":  {name:"Lomba Nyanyi Single", fee:0, type:"personal", desc:"Single • Gratis. Nomor 7 pada formulir sumber tertulis sama dengan nomor 6."},
-  "8":  {name:"Lari 100 Meter Pria", fee:0, type:"personal", desc:"Kategori pria • Gratis."},
-  "9":  {name:"Lari 50 Meter Perempuan", fee:0, type:"personal", desc:"Kategori perempuan • Gratis."},
-  "10": {name:"Memindahkan Kertas Ikan", fee:0, type:"personal", desc:"Single • Gratis."},
-  "11": {name:"Memindahkan Sedotan dengan Mulut & Hidung", fee:0, type:"personal", desc:"Single • Gratis."},
-  "12": {name:"Estafet Bola Menggunakan Stik Balon", fee:0, type:"team", flexible:true, min:1, max:12, desc:"Tim • Gratis. Jumlah anggota tidak tercantum pada formulir sumber."},
-  "13": {name:"Balap Karung Pakai Helm", fee:0, type:"personal", desc:"Single • Gratis."}
-};
-
-function showToast(message){
-  $("toast").textContent = message;
-  $("toast").classList.add("show");
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(()=>$("toast").classList.remove("show"),2600);
-}
-
-function apiReady(){
-  return CFG.API_URL &&
-         !CFG.API_URL.includes("PASTE_") &&
-         /\/exec(?:\?|$)/.test(CFG.API_URL);
-}
-
-async function api(payload){
-  const response = await fetch(CFG.API_URL,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(payload),
-    redirect:"follow"
-  });
-  const raw = await response.text();
-  let data;
-  try{ data = JSON.parse(raw); }
-  catch{ throw new Error("Respons backend tidak valid. Pastikan URL Apps Script menggunakan /exec."); }
-  if(!data.ok) throw new Error(data.message || "Permintaan gagal.");
-  return data;
-}
-
-$("phone").addEventListener("input",e=>{
-  e.target.value = e.target.value.replace(/[^\d+]/g,"");
-});
-$("aeonId").addEventListener("input",e=>{
-  e.target.value = e.target.value.replace(/\s/g,"");
-});
-
-function memberRows(){
-  return [...document.querySelectorAll(".member-row")];
-}
-
-function addMemberRow(){
-  const ev = EVENTS[$("eventId").value];
-  if(!ev || ev.type!=="team") return;
-  const maxAdditional = (ev.max || 12) - 1;
-  if(memberRows().length >= maxAdditional){
-    showToast("Jumlah anggota sudah mencapai batas.");
-    return;
-  }
-
-  const row = document.createElement("div");
-  row.className = "member-row";
-  row.innerHTML = `
-    <input class="m-id" placeholder="ID AEON">
-    <input class="m-name" placeholder="Nama anggota">
-    <input class="m-division" placeholder="Divisi">
-    <button type="button" title="Hapus">×</button>
-  `;
-  row.querySelector("button").onclick = ()=>row.remove();
-  $("members").appendChild(row);
-}
-
-function syncTeamMinimum(ev){
-  $("members").innerHTML = "";
-  if(ev.flexible) return;
-  const minAdditional = Math.max(0,(ev.min || 1)-1);
-  for(let i=0;i<minAdditional;i++) addMemberRow();
-}
-
-$("addMember").addEventListener("click",addMemberRow);
-
-function updateEventUI(){
-  const ev = EVENTS[$("eventId").value];
-
-  if(!ev){
-    $("eventBox").classList.remove("show");
-    $("teamPanel").classList.remove("show");
-    $("paymentBox").classList.remove("show");
-    $("teamName").required = false;
-    $("members").innerHTML = "";
-    return;
-  }
-
-  $("eventName").textContent = ev.name;
-  $("eventFee").textContent = ev.fee ? rupiah(ev.fee) : "GRATIS";
-  $("eventDesc").textContent = ev.desc;
-  $("eventBox").classList.add("show");
-
-  if(ev.type==="team"){
-    $("teamPanel").classList.add("show");
-    $("teamName").required = true;
-    $("teamRule").textContent = ev.flexible ? "jumlah anggota mengikuti ketentuan panitia" : `${ev.min}-${ev.max} orang termasuk pendaftar`;
-    syncTeamMinimum(ev);
-  } else {
-    $("teamPanel").classList.remove("show");
-    $("teamName").required = false;
-    $("teamName").value = "";
-    $("members").innerHTML = "";
-  }
-
-  if(ev.fee>0){
-    $("paymentText").textContent =
-      `Biaya ${rupiah(ev.fee)} • ${CFG.BANK || "CIMB"} ${CFG.ACCOUNT_NUMBER || "707503937600"} a.n ${CFG.ACCOUNT_NAME || "Ahmad Faiz"}. Status pembayaran diverifikasi panitia.`;
-    $("paymentBox").classList.add("show");
-  } else {
-    $("paymentBox").classList.remove("show");
-  }
-}
-
-$("eventId").addEventListener("change",updateEventUI);
-
-function collectMembers(){
-  return memberRows().map(row=>({
-    id:row.querySelector(".m-id").value.trim(),
-    name:row.querySelector(".m-name").value.trim(),
-    division:row.querySelector(".m-division").value.trim()
-  })).filter(x=>x.id || x.name || x.division);
-}
-
-function validateTeam(ev){
-  if(ev.type!=="team") return true;
-  const members = collectMembers();
-
-  for(const m of members){
-    if(!m.id || !m.name || !m.division){
-      showToast("Lengkapi ID AEON, nama, dan divisi seluruh anggota tim.");
-      return false;
-    }
-  }
-
-  if(!ev.flexible){
-    const total = 1 + members.length;
-    if(total < ev.min || total > ev.max){
-      showToast(`Jumlah peserta harus ${ev.min}-${ev.max} orang termasuk pendaftar.`);
-      return false;
-    }
-  }
-
-  return true;
-}
-
-$("regForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-
-  if(!apiReady()){
-    showToast("API belum diatur. Isi API_URL pada config.js.");
-    return;
-  }
-
-  if(!$("regForm").reportValidity()) return;
-
-  const ev = EVENTS[$("eventId").value];
-  if(!ev){
-    showToast("Silakan pilih cabang lomba.");
-    return;
-  }
-
-  if(!validateTeam(ev)) return;
-
-  const btn = $("submitBtn");
-  btn.disabled = true;
-  btn.classList.add("loading");
-
-  try{
-    const result = await api({
-      action:"register",
-      aeonId:$("aeonId").value.trim(),
-      name:$("name").value.trim(),
-      division:$("division").value.trim(),
-      phone:$("phone").value.trim(),
-      eventId:$("eventId").value,
-      teamName:ev.type==="team" ? $("teamName").value.trim() : "",
-      members:ev.type==="team" ? collectMembers() : []
-    });
-
-    $("successCode").textContent = result.code;
-    $("successInfo").textContent =
-      result.paymentStatus==="Gratis"
-      ? "Lomba ini gratis."
-      : `Status pembayaran: ${result.paymentStatus}.`;
-
-    $("successModal").classList.add("show");
-    $("regForm").reset();
-    updateEventUI();
-
-  }catch(err){
-    showToast(err.message || "Registrasi gagal.");
-  }finally{
-    btn.disabled = false;
-    btn.classList.remove("loading");
-  }
-});
-
-$("copyCode").onclick = async ()=>{
-  try{
-    await navigator.clipboard.writeText($("successCode").textContent);
-    showToast("Kode registrasi disalin.");
-  }catch{
-    showToast("Silakan salin kode secara manual.");
-  }
-};
-
-$("finishBtn").onclick = ()=>$("successModal").classList.remove("show");
-</script>
+<script src="./config.js"></script>
+<script src="./assets/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="./assets/index.js"></script>
 </body>
 </html>

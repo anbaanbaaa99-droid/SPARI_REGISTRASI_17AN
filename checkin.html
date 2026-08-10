@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1018">
+<link rel="icon" href="./assets/icon.svg">
+<link rel="stylesheet" href="./assets/app.css">
+<title>Check-in QR SPARI</title>
+</head>
+<body class="admin-body">
+<div class="checkin-shell">
+  <header class="checkin-header">
+    <div class="admin-logo"><div class="brand-logo">81</div><div><b>CHECK-IN PANITIA</b><small>SPARI HUT RI KE-81</small></div></div>
+    <a class="dark-btn" href="./admin.html" style="display:inline-flex;align-items:center">← Dashboard</a>
+  </header>
+
+  <div class="checkin-grid">
+    <section class="scanner-card">
+      <div class="scanner-head"><h2>Scanner QR Peserta</h2><p>Arahkan kamera ke QR pada kartu peserta.</p></div>
+      <div class="scanner-body">
+        <div class="scanner-box" id="reader"></div>
+        <div class="manual-row">
+          <input class="dark-control" id="manualCode" placeholder="Atau masukkan kode registrasi">
+          <button class="dark-btn red" id="manualLookup">Cari</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="lookup-dark">
+      <div class="scanner-head"><h2>Hasil Pemeriksaan</h2><p>Pastikan nama dan cabang lomba sesuai sebelum check-in.</p></div>
+      <div class="lookup-result" id="lookupResult">
+        <div class="checkin-person">
+          <h3 id="ciName">-</h3>
+          <p id="ciSub">-</p>
+          <div class="checkin-meta">
+            <div class="detail-box"><span>Pembayaran</span><b id="ciPayment">-</b></div>
+            <div class="detail-box"><span>Check-in</span><b id="ciStatus">-</b></div>
+            <div class="detail-box"><span>Divisi</span><b id="ciDivision">-</b></div>
+            <div class="detail-box"><span>Tim</span><b id="ciTeam">-</b></div>
+          </div>
+          <div class="checkin-actions">
+            <button class="present-btn" id="checkinBtn">✓ Tandai Hadir</button>
+            <button class="undo-btn" id="undoBtn">Batalkan Check-in</button>
+          </div>
+        </div>
+      </div>
+      <div class="empty-dark" id="lookupEmpty" style="display:block">Scan QR atau masukkan kode peserta.</div>
+    </section>
+  </div>
+</div>
+
+<div class="login-overlay" id="loginOverlay">
+  <form class="login-card" id="loginForm">
+    <div class="brand-logo" style="background:linear-gradient(135deg,#ef4444,#991b1b);color:#fff;margin-bottom:16px">81</div>
+    <h2>Login Panitia</h2><p>Scanner check-in membutuhkan sesi admin.</p>
+    <input class="dark-control" id="adminPin" type="password" inputmode="numeric" placeholder="PIN admin" required>
+    <button class="dark-btn red" style="width:100%;height:47px" type="submit">Masuk</button>
+    <div class="login-error" id="loginError"></div>
+  </form>
+</div>
+
+<script src="./config.js"></script>
+<script src="./assets/common.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="./assets/checkin.js"></script>
+</body>
+</html>

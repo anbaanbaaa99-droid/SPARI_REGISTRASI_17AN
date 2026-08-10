@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#b91c1c">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/icon.svg">
+<link rel="stylesheet" href="./assets/app.css">
+<title>Cek Status SPARI HUT RI 81</title>
+</head>
+<body class="bg-public">
+<div class="status-shell">
+  <header class="status-top no-print">
+    <div class="brand">
+      <div class="brand-logo">81</div>
+      <div><strong>CEK STATUS PESERTA</strong><small>SPARI HUT RI KE-81</small></div>
+    </div>
+    <a class="secondary-btn" href="./index.html" style="display:inline-flex;align-items:center">← Registrasi</a>
+  </header>
+
+  <section class="lookup-card no-print">
+    <div class="section-title">Cari kode registrasi</div>
+    <div class="lookup-row">
+      <input class="control" id="codeInput" placeholder="Contoh: SPARI81-260810-ABC123">
+      <button id="lookupBtn">Cek Status</button>
+    </div>
+  </section>
+
+  <section class="ticket" id="ticket">
+    <div class="ticket-head">
+      <div><strong id="ticketName">-</strong><small id="ticketEvent">-</small></div>
+      <div class="mono" id="ticketCode" style="color:#fff">-</div>
+    </div>
+    <div class="ticket-body">
+      <div class="ticket-grid">
+        <div class="ticket-field"><span>Divisi</span><b id="ticketDivision">-</b></div>
+        <div class="ticket-field"><span>Nama Tim</span><b id="ticketTeam">-</b></div>
+        <div class="ticket-field"><span>Biaya</span><b id="ticketFee">-</b></div>
+        <div class="ticket-field"><span>Terdaftar</span><b id="ticketCreated">-</b></div>
+      </div>
+      <div class="ticket-statuses">
+        <span class="badge" id="paymentBadge">-</span>
+        <span class="badge" id="checkinBadge">-</span>
+      </div>
+      <div class="ticket-bottom">
+        <div class="qr-wrap" id="ticketQr"></div>
+        <div>
+          <h3 style="margin:0 0 7px;font-size:18px">Kartu peserta digital</h3>
+          <p style="margin:0;color:#6b7280;font-size:10px;line-height:1.6">Tunjukkan QR/kode ini kepada panitia saat registrasi ulang atau check-in pada hari kegiatan.</p>
+          <div class="ticket-actions no-print">
+            <button onclick="window.print()">Print / Simpan PDF</button>
+            <button id="copyTicketCode">Salin Kode</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="./config.js"></script>
+<script src="./assets/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="./assets/status.js"></script>
+</body>
+</html>
