@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SPARI HUT RI 81</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#b91c1c,#111827);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.box{background:#ffffff22;backdrop-filter:blur(20px);padding:30px;border-radius:25px;color:white;max-width:450px;width:100%}
+.card{background:white;color:#111;padding:20px;border-radius:20px}
+input,select,button{width:100%;padding:14px;margin:8px 0;border-radius:12px}
+button{background:#dc2626;color:white;border:0;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🇮🇩 SPARI HUT RI 81</h1>
+<p>Registrasi Perlombaan</p>
+<div class="card">
+<form id="form">
+<input id="id" placeholder="ID AEON" required>
+<input id="nama" placeholder="Nama Peserta" required>
+<input id="divisi" placeholder="Divisi" required>
+<input id="hp" placeholder="No WhatsApp" required>
+<select id="lomba">
+<option>Futsal</option>
+<option>Basket 3x3</option>
+<option>Badminton</option>
+<option>E-Sport</option>
+<option>Lomba Nyanyi</option>
+</select>
+<button>DAFTAR</button>
+</form>
+</div>
+</div>
+<script>
+const API="MASUKKAN_URL_APPS_SCRIPT";
+form.onsubmit=async e=>{
+e.preventDefault();
+let kode="SPARI-"+Date.now();
+await fetch(API,{method:"POST",body:JSON.stringify({
+kode,id:id.value,nama:nama.value,divisi:divisi.value,hp:hp.value,lomba:lomba.value
+})});
+alert("Berhasil! Kode "+kode);
+form.reset();
+}
+</script>
+</body>
+</html>

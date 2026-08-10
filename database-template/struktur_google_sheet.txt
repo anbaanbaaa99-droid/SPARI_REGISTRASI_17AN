@@ -1,0 +1,10 @@
+Sheet: Peserta
+
+Timestamp
+Kode
+ID AEON
+Nama
+Divisi
+No HP
+Lomba
+Status Pembayaran
