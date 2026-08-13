@@ -1,5 +1,8 @@
-const { $, api, rupiah, toast, parseCode, statusClass, checkClass, registerSW } = SPARI;
+const { $, api, rupiah, toast, parseCode, statusClass, checkClass, registerSW, loadScript } = SPARI;
+
 let currentCode = "";
+const QR_SRC = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+
 registerSW();
 
 async function lookup(codeValue) {
@@ -8,7 +11,10 @@ async function lookup(codeValue) {
     toast("Masukkan kode registrasi.", "error");
     return;
   }
-  $("lookupBtn").disabled = true;
+
+  const btn = $("lookupBtn");
+  btn.disabled = true;
+  btn.classList.add("is-loading");
   try {
     const result = await api({action:"publicStatus", code});
     renderTicket(result.data);
@@ -17,9 +23,22 @@ async function lookup(codeValue) {
     history.replaceState({}, "", url);
   } catch (err) {
     $("ticket").classList.remove("show");
-    toast(err.message, "error");
+    toast(err.message, "error", 4500);
   } finally {
-    $("lookupBtn").disabled = false;
+    btn.disabled = false;
+    btn.classList.remove("is-loading");
+  }
+}
+
+async function renderTicketQr(url) {
+  const target = $("ticketQr");
+  target.innerHTML = '<span class="qr-loading">Menyiapkan QR…</span>';
+  try {
+    await loadScript(QR_SRC, "qrcodejs");
+    target.innerHTML = "";
+    new QRCode(target, {text:url, width:155, height:155, correctLevel:QRCode.CorrectLevel.M});
+  } catch {
+    target.innerHTML = '<span class="qr-loading">QR gagal dimuat.<br>Gunakan kode peserta.</span>';
   }
 }
 
@@ -42,19 +61,24 @@ function renderTicket(x) {
 
   const canonical = new URL("./status.html", location.href);
   canonical.searchParams.set("code", x.code);
-  $("ticketQr").innerHTML = "";
-  new QRCode($("ticketQr"), {text:canonical.href, width:155, height:155, correctLevel:QRCode.CorrectLevel.M});
 
   $("ticket").classList.add("show");
+  renderTicketQr(canonical.href);
 }
 
 $("lookupBtn").onclick = () => lookup($("codeInput").value);
 $("codeInput").addEventListener("keydown", e => {
   if (e.key === "Enter") lookup($("codeInput").value);
 });
+
 $("copyTicketCode").onclick = async () => {
-  try { await navigator.clipboard.writeText(currentCode); toast("Kode disalin.", "success"); }
-  catch { toast("Silakan salin kode manual."); }
+  if (!currentCode) return;
+  try {
+    await navigator.clipboard.writeText(currentCode);
+    toast("Kode disalin.", "success");
+  } catch {
+    toast("Silakan salin kode manual.");
+  }
 };
 
 const q = new URLSearchParams(location.search).get("code");

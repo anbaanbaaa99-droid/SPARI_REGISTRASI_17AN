@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#b91c1c">
+<meta name="description" content="Registrasi perlombaan SPARI HUT RI ke-81 AEON Alam Sutera.">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./assets/icon.svg">
 <link rel="stylesheet" href="./assets/app.css">
@@ -26,10 +29,12 @@
     <section class="public-hero">
       <div class="kicker"><i></i> Perayaan HUT RI ke-81</div>
       <h1>Semarakan 17-an di AEON Alam Sutera</h1>
-      <p>Dalam rangka memperingati HUT Kemerdekaan RI, mari kita rayakan semangat 17-an bersama seluruh karyawan AEON Alam Sutera! 
-Siapkan semangat, kekompakan, dan energi terbaik kamu untuk ikut memeriahkan berbagai keseruan acara 17-an. 
-Jangan sampai ketinggalan, ya!.</p>
-      <div class="announcement" id="announcement"></div>
+      <p>Dalam rangka memperingati HUT Kemerdekaan RI, mari rayakan semangat 17-an bersama seluruh karyawan AEON Alam Sutera. Siapkan kekompakan dan energi terbaik untuk memeriahkan perlombaan!</p>
+      <div class="hero-info" aria-label="Informasi registrasi">
+        <div class="hero-mini"><strong id="heroEventCount">Memuat cabang…</strong><span>Pilih lomba yang ingin kamu ikuti.</span></div>
+        <div class="hero-mini"><strong>Registrasi online</strong><span>Cepat, aman, dan kartu peserta langsung tersedia.</span></div>
+      </div>
+      <div class="announcement" id="announcement" role="status" aria-live="polite"></div>
     </section>
 
     <section class="public-card">
@@ -48,7 +53,7 @@ Jangan sampai ketinggalan, ya!.</p>
         </div>
 
         <div class="section-title">Pilih cabang lomba</div>
-        <div class="field"><label>Cabang lomba *</label><select class="control" id="eventId" required><option value="">Memuat cabang lomba…</option></select></div>
+        <div class="field"><label>Cabang lomba *</label><select class="control" id="eventId" required disabled aria-busy="true"><option value="">Memuat cabang lomba…</option></select></div>
 
         <div class="event-info" id="eventInfo">
           <div class="event-row"><div class="event-name" id="eventName"></div><div class="event-fee" id="eventFee"></div></div>
@@ -66,13 +71,13 @@ Jangan sampai ketinggalan, ya!.</p>
 
         <label class="agree"><input type="checkbox" id="agree" required><span>Saya memastikan seluruh data yang dimasukkan sudah benar dan dapat digunakan panitia untuk pendataan perlombaan.</span></label>
 
-        <button type="submit" class="primary-btn" id="submitBtn">
+        <button type="submit" class="primary-btn" id="submitBtn" disabled>
           <span class="spinner"></span><span class="btn-label">Kirim Registrasi →</span>
         </button>
       </form>
     </section>
   </main>
-  <div class="public-footer">CREATED BY FINH</div>
+  <footer class="public-footer"><span>CREATED BY</span><strong>FINH</strong></footer>
 </div>
 
 <div class="modal" id="successModal">
@@ -90,9 +95,8 @@ Jangan sampai ketinggalan, ya!.</p>
   </div>
 </div>
 
-<script src="./config.js"></script>
-<script src="./assets/common.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="./assets/index.js"></script>
+<script src="./config.js" defer></script>
+<script src="./assets/common.js" defer></script>
+<script src="./assets/index.js" defer></script>
 </body>
 </html>

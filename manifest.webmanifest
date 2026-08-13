@@ -1,7 +1,10 @@
 {
+  "id": "./",
   "name": "SPARI HUT RI 81",
   "short_name": "SPARI81",
+  "lang": "id-ID",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#111827",
   "theme_color": "#b91c1c",

@@ -1,7 +1,9 @@
-const { $, api, rupiah, esc, toast, statusClass, checkClass } = SPARI;
+const { $, api, rupiah, esc, toast, statusClass, checkClass, loadScript } = SPARI;
 let TOKEN = sessionStorage.getItem("spari_token") || "";
 let DATA = [], FILTERED = [], EVENTS = [], SETTINGS = {}, LOGS = [], CHECKINS = [];
 let eventChart = null, paymentChart = null;
+let chartLoading = false;
+const CHART_SRC = "https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js";
 
 const pageTitles = {
   dashboard:"Dashboard Panitia",
@@ -56,6 +58,8 @@ async function autoLogin() {
 }
 
 async function loadAll() {
+  const refresh = $("refreshBtn");
+  if (refresh) refresh.disabled = true;
   try {
     const result = await adminApi("adminSnapshot");
     DATA = result.registrations || [];
@@ -66,8 +70,10 @@ async function loadAll() {
     renderAll();
     $("lastUpdate").textContent = "Terakhir diperbarui " + new Date().toLocaleString("id-ID");
   } catch (err) {
-    toast(err.message, "error");
+    toast(err.message, "error", 4500);
     if (/sesi|token|login/i.test(err.message)) logout();
+  } finally {
+    if (refresh) refresh.disabled = false;
   }
 }
 
@@ -130,15 +136,15 @@ function renderRegistrations() {
       : "";
 
     return `<tr>
-      <td><span class="mono">${esc(x.code)}</span></td>
-      <td><div class="person"><b>${esc(x.name)}</b><small>${esc(x.aeonId)} • ${esc(x.division)}</small></div></td>
-      <td>${x.eventNo}. ${esc(x.eventName)}</td>
-      <td>${esc(x.teamName || "—")}</td>
-      <td>${x.fee ? rupiah(x.fee) : "Gratis"}</td>
-      <td><span class="badge ${statusClass(x.paymentStatus)}">${esc(x.paymentStatus)}</span></td>
-      <td><span class="badge ${checkClass(x.checkInStatus)}">${esc(x.checkInStatus || "Belum Hadir")}</span></td>
-      <td>${esc(x.timestamp)}</td>
-      <td><div class="row-actions">
+      <td data-label="Kode"><span class="mono">${esc(x.code)}</span></td>
+      <td data-label="Peserta"><div class="person"><b>${esc(x.name)}</b><small>${esc(x.aeonId)} • ${esc(x.division)}</small></div></td>
+      <td data-label="Lomba">${x.eventNo}. ${esc(x.eventName)}</td>
+      <td data-label="Tim">${esc(x.teamName || "—")}</td>
+      <td data-label="Biaya">${x.fee ? rupiah(x.fee) : "Gratis"}</td>
+      <td data-label="Bayar"><span class="badge ${statusClass(x.paymentStatus)}">${esc(x.paymentStatus)}</span></td>
+      <td data-label="Check-in"><span class="badge ${checkClass(x.checkInStatus)}">${esc(x.checkInStatus || "Belum Hadir")}</span></td>
+      <td data-label="Waktu">${esc(x.timestamp)}</td>
+      <td data-label="Aksi"><div class="row-actions">
         <button class="mini-btn" data-action="detail" data-code="${esc(x.code)}">Detail</button>
         ${payBtn}
         <button class="mini-btn bad" data-action="delete" data-code="${esc(x.code)}">Hapus</button>
@@ -157,15 +163,23 @@ $("regBody").onclick = async (e) => {
   btn.disabled = true;
   try {
     if (action === "pay") {
-      await adminApi("updatePayment",{code,status:btn.dataset.status});
+      const nextStatus = btn.dataset.status;
+      await adminApi("updatePayment",{code,status:nextStatus});
+      const row = DATA.find(x => x.code === code);
+      if (row) {
+        row.paymentStatus = nextStatus;
+        row.paymentUpdatedAt = new Date().toLocaleString("id-ID");
+      }
+      renderAll();
       toast("Status pembayaran diperbarui.", "success");
     } else if (action === "delete") {
       const row = DATA.find(x => x.code === code);
       if (!confirm(`Hapus registrasi ${row?.name || code}? Data tidak dapat dipulihkan.`)) return;
       await adminApi("deleteRegistration",{code});
+      DATA = DATA.filter(x => x.code !== code);
+      renderAll();
       toast("Registrasi dihapus.", "success");
     }
-    await loadAll();
   } catch (err) {
     toast(err.message,"error");
   } finally {
@@ -198,13 +212,13 @@ $("detailModal").onclick = e => { if (e.target === $("detailModal")) $("detailMo
 
 function renderEvents() {
   $("eventBody").innerHTML = EVENTS.map(ev => `<tr data-id="${esc(ev.id)}">
-    <td>${ev.no}</td><td><b>${esc(ev.name)}</b><div style="color:#738197;margin-top:3px">${esc(ev.note||"")}</div></td>
-    <td>${esc(ev.type)}</td>
-    <td><input type="number" class="ev-fee" min="0" value="${Number(ev.fee)||0}"></td>
-    <td><input type="number" class="ev-quota" min="0" value="${Number(ev.quota)||0}" title="0 = tanpa batas"></td>
-    <td>${ev.used}</td>
-    <td><select class="ev-status"><option value="OPEN" ${ev.status==="OPEN"?"selected":""}>OPEN</option><option value="CLOSED" ${ev.status==="CLOSED"?"selected":""}>CLOSED</option></select></td>
-    <td><button class="mini-btn good save-event">Simpan</button></td>
+    <td data-label="No">${ev.no}</td><td data-label="Cabang"><b>${esc(ev.name)}</b><div style="color:#738197;margin-top:3px">${esc(ev.note||"")}</div></td>
+    <td data-label="Tipe">${esc(ev.type)}</td>
+    <td data-label="Biaya"><input type="number" class="ev-fee" min="0" value="${Number(ev.fee)||0}"></td>
+    <td data-label="Kuota"><input type="number" class="ev-quota" min="0" value="${Number(ev.quota)||0}" title="0 = tanpa batas"></td>
+    <td data-label="Terpakai">${ev.used}</td>
+    <td data-label="Status"><select class="ev-status"><option value="OPEN" ${ev.status==="OPEN"?"selected":""}>OPEN</option><option value="CLOSED" ${ev.status==="CLOSED"?"selected":""}>CLOSED</option></select></td>
+    <td data-label="Aksi"><button class="mini-btn good save-event">Simpan</button></td>
   </tr>`).join("");
 
   document.querySelectorAll(".save-event").forEach(btn => btn.onclick = async () => {
@@ -217,8 +231,15 @@ function renderEvents() {
         quota:Number(tr.querySelector(".ev-quota").value)||0,
         status:tr.querySelector(".ev-status").value
       });
+      const ev = EVENTS.find(x => x.id === id);
+      if (ev) {
+        ev.fee = Number(tr.querySelector(".ev-fee").value) || 0;
+        ev.quota = Number(tr.querySelector(".ev-quota").value) || 0;
+        ev.status = tr.querySelector(".ev-status").value;
+      }
+      renderStats();
+      renderCharts();
       toast("Pengaturan lomba disimpan.","success");
-      await loadAll();
     } catch (err) { toast(err.message,"error"); }
     finally { btn.disabled = false; }
   });
@@ -242,8 +263,15 @@ $("settingsForm").onsubmit = async (e) => {
       accountName:$("setAccountName").value.trim(),
       announcement:$("setAnnouncement").value.trim()
     });
+    SETTINGS = {
+      ...SETTINGS,
+      registrationOpen:$("setOpen").value === "TRUE",
+      bank:$("setBank").value.trim(),
+      accountNumber:$("setAccount").value.trim(),
+      accountName:$("setAccountName").value.trim(),
+      announcement:$("setAnnouncement").value.trim()
+    };
     toast("Pengaturan publik disimpan.","success");
-    await loadAll();
   } catch (err) { toast(err.message,"error"); }
 };
 
@@ -259,21 +287,39 @@ function renderCheckins() {
   ).join("") : '<div class="recent-item"><span>Belum ada check-in.</span></div>';
 }
 
-function renderCharts() {
-  if (!window.Chart || !DATA.length) {
-    if (!DATA.length) {
-      eventChart?.destroy(); paymentChart?.destroy(); eventChart = paymentChart = null;
-    }
+async function renderCharts() {
+  if (!DATA.length) {
+    eventChart?.destroy();
+    paymentChart?.destroy();
+    eventChart = paymentChart = null;
     return;
   }
 
+  if (!window.Chart) {
+    if (chartLoading) return;
+    chartLoading = true;
+    try {
+      await loadScript(CHART_SRC, "chartjs");
+    } catch (err) {
+      toast("Grafik tidak dapat dimuat. Data tabel tetap tersedia.", "error");
+      return;
+    } finally {
+      chartLoading = false;
+    }
+  }
+
+  const countByEvent = DATA.reduce((out, row) => {
+    out[row.eventId] = (out[row.eventId] || 0) + 1;
+    return out;
+  }, {});
+  const pay = DATA.reduce((out, row) => {
+    out[row.paymentStatus] = (out[row.paymentStatus] || 0) + 1;
+    return out;
+  }, {});
+
   const labels = EVENTS.map(x => `${x.no}. ${x.name}`);
-  const counts = EVENTS.map(ev => DATA.filter(x => x.eventId === ev.id).length);
-  const paymentCounts = [
-    DATA.filter(x => x.paymentStatus === "Sudah Bayar").length,
-    DATA.filter(x => x.paymentStatus === "Belum Bayar").length,
-    DATA.filter(x => x.paymentStatus === "Gratis").length
-  ];
+  const counts = EVENTS.map(ev => countByEvent[ev.id] || 0);
+  const paymentCounts = [pay["Sudah Bayar"] || 0, pay["Belum Bayar"] || 0, pay["Gratis"] || 0];
 
   eventChart?.destroy();
   paymentChart?.destroy();
@@ -281,7 +327,7 @@ function renderCharts() {
   eventChart = new Chart($("eventChart"), {
     type:"bar",
     data:{labels,datasets:[{label:"Registrasi",data:counts}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{display:false}},scales:{
       x:{ticks:{color:"#8a98ab",maxRotation:70,minRotation:45,font:{size:8}},grid:{display:false}},
       y:{beginAtZero:true,ticks:{color:"#8a98ab",precision:0},grid:{color:"rgba(148,163,184,.10)"}}
     }}
@@ -290,10 +336,9 @@ function renderCharts() {
   paymentChart = new Chart($("paymentChart"), {
     type:"doughnut",
     data:{labels:["Sudah Bayar","Belum Bayar","Gratis"],datasets:[{data:paymentCounts}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#cbd5e1",font:{size:10}}}}}
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{labels:{color:"#cbd5e1",font:{size:10}}}}}
   });
 }
-
 ["search","eventFilter","statusFilter","checkFilter"].forEach(id => {
   $(id).addEventListener(id === "search" ? "input":"change", applyFilters);
 });
