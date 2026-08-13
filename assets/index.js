@@ -19,7 +19,10 @@ async function boot() {
 
 function renderPublicConfig() {
   const settings = PUBLIC.settings || {};
-  $("heroEventCount").textContent = `${EVENTS.length} Cabang`;
+  const heroEventCount = $("heroEventCount");
+if (heroEventCount) {
+  heroEventCount.textContent = `${EVENTS.length} Cabang`;
+}
   $("registrationState").textContent =
     settings.registrationOpen ? "Pendaftaran sedang dibuka." : "Pendaftaran sedang ditutup oleh panitia.";
 
