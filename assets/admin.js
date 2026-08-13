@@ -91,7 +91,7 @@ function renderAll() {
 function membersOf(x) { return Array.isArray(x.members) ? x.members : []; }
 
 function renderStats() {
-  const people = DATA.reduce((n,x) => n + 1 + membersOf(x).length, 0);
+  const people = DATA.length;
   const paid = DATA.filter(x => x.paymentStatus === "Sudah Bayar");
   $("sPeople").textContent = people;
   $("sRegs").textContent = DATA.length;

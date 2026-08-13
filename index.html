@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./assets/icon.svg">
-<link rel="stylesheet" href="./assets/app.css">
+<link rel="stylesheet" href="./assets/app.css?v=5">
 <title>Registrasi SPARI HUT RI 81</title>
 </head>
 <body class="bg-public">
@@ -45,9 +45,10 @@
 
       <form id="regForm" class="form-body" novalidate>
         <div class="section-title">Data peserta / penanggung jawab tim</div>
+        <p class="section-help">Untuk lomba tim, cukup <b>1 orang perwakilan / PIC</b> yang mendaftar. Nama anggota tim tidak perlu diisi.</p>
         <div class="grid2">
           <div class="field"><label>ID AEON *</label><input class="control" id="aeonId" autocomplete="off" placeholder="Contoh: 2507026" required></div>
-          <div class="field"><label>Nama lengkap *</label><input class="control" id="name" autocomplete="name" placeholder="Nama peserta" required></div>
+          <div class="field"><label>Nama lengkap *</label><input class="control" id="name" autocomplete="name" placeholder="Nama peserta / perwakilan" required></div>
           <div class="field"><label>Divisi *</label><input class="control" id="division" autocomplete="organization" placeholder="Contoh: VMD" required></div>
           <div class="field"><label>No. WhatsApp *</label><input class="control" id="phone" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required></div>
         </div>
@@ -58,13 +59,6 @@
         <div class="event-info" id="eventInfo">
           <div class="event-row"><div class="event-name" id="eventName"></div><div class="event-fee" id="eventFee"></div></div>
           <div class="event-desc" id="eventDesc"></div>
-        </div>
-
-        <div class="team-panel" id="teamPanel">
-          <div class="field" style="margin-bottom:10px"><label>Nama tim *</label><input class="control" id="teamName" placeholder="Contoh: VMD Merdeka"></div>
-          <div class="team-head"><b>Anggota tambahan</b><span id="teamRule"></span></div>
-          <div id="members"></div>
-          <button type="button" class="add-member" id="addMember">+ Tambah anggota</button>
         </div>
 
         <div class="payment-box" id="paymentBox"><b>Informasi pembayaran</b><span id="paymentText"></span></div>

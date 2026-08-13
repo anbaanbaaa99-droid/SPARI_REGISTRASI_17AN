@@ -180,37 +180,16 @@ function register_(d) {
   const name = clean_(d.name,120);
   const division = clean_(d.division,100);
   const phone = clean_(d.phone,30).replace(/[\s-]/g,"");
-  const teamName = clean_(d.teamName,100);
+  // Registrasi lomba tim hanya memakai data 1 perwakilan / PIC.
+  // Nama tim dan daftar anggota tidak diwajibkan agar proses registrasi tetap ringan.
+  const teamName = "";
+  const members = [];
 
   if (!aeonId || !name || !division || !phone) throw new Error("ID AEON, nama, divisi, dan WhatsApp wajib diisi.");
   if (!/^[A-Za-z0-9._-]+$/.test(aeonId)) throw new Error("Format ID AEON tidak valid.");
   if (!/^\+?[0-9]{8,16}$/.test(phone)) throw new Error("Nomor WhatsApp tidak valid.");
 
-  let members = Array.isArray(d.members) ? d.members : [];
-  members = members.map(function(m){
-    return {id:clean_(m.id,40),name:clean_(m.name,120),division:clean_(m.division,100)};
-  }).filter(function(m){return m.id||m.name||m.division;});
-
-  if (ev.type === "team") {
-    if (!teamName) throw new Error("Nama tim wajib diisi.");
-    members.forEach(function(m){
-      if (!m.id || !m.name || !m.division) throw new Error("Data anggota tim belum lengkap.");
-    });
-    if (!ev.flexible) {
-      const total = 1 + members.length;
-      if (total < ev.min || total > ev.max) throw new Error("Jumlah tim harus "+ev.min+"-"+ev.max+" orang termasuk pendaftar.");
-    }
-  } else {
-    members = [];
-  }
-
-  const ids = [aeonId].concat(members.map(function(m){return m.id;}));
-  const unique = {};
-  ids.forEach(function(id){
-    const k = String(id).toLowerCase();
-    if (unique[k]) throw new Error("Ada ID AEON yang sama di dalam satu pendaftaran tim.");
-    unique[k] = true;
-  });
+  const ids = [aeonId];
 
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(10000)) throw new Error("Server sedang sibuk. Coba beberapa detik lagi.");

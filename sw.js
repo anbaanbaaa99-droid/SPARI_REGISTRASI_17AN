@@ -1,16 +1,16 @@
-const CACHE = "spari81-v4";
+const CACHE = "spari81-v5";
 const STATIC = [
   "./",
   "./index.html",
   "./status.html",
   "./admin.html",
   "./checkin.html",
-  "./assets/app.css",
-  "./assets/common.js",
-  "./assets/index.js",
-  "./assets/status.js",
-  "./assets/admin.js",
-  "./assets/checkin.js",
+  "./assets/app.css?v=5",
+  "./assets/common.js?v=5",
+  "./assets/index.js?v=5",
+  "./assets/status.js?v=5",
+  "./assets/admin.js?v=5",
+  "./assets/checkin.js?v=5",
   "./assets/icon.svg",
   "./manifest.webmanifest"
 ];

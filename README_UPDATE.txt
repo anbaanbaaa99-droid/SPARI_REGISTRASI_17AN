@@ -1,4 +1,4 @@
-SPARI HUT RI 81 — OPTIMIZED V4
+SPARI HUT RI 81 — OPTIMIZED V5 — REGISTRASI PERWAKILAN
 
 Yang diperbaiki:
 - UI publik benar-benar responsif untuk HP kecil sampai desktop.
@@ -8,6 +8,9 @@ Yang diperbaiki:
 - Halaman status dan check-in dirapikan untuk layar mobile.
 - Toast, modal, tombol, input, QR, scanner, dan safe-area iPhone diperbaiki.
 - Input mobile memakai ukuran yang aman agar Safari iPhone tidak auto-zoom.
+- Lomba tim sekarang cukup didaftarkan oleh 1 perwakilan/PIC. Tidak ada lagi input nama/ID/divisi anggota tim.
+- Nama tim juga tidak diwajibkan; data utama yang disimpan adalah data PIC + cabang lomba.
+- Dashboard menghitung Perwakilan/PIC, bukan jumlah anggota tim.
 
 Optimasi loading:
 - QRCode tidak lagi dimuat saat halaman awal; baru dimuat ketika QR benar-benar dibutuhkan.
@@ -15,7 +18,7 @@ Optimasi loading:
 - html5-qrcode baru dimuat setelah panitia login ke scanner.
 - Public config disimpan lokal selama 2 menit agar kunjungan berikutnya menampilkan daftar lomba hampir instan, lalu disegarkan dari server.
 - Tidak ada request publicConfig kedua setelah registrasi berhasil.
-- Service Worker V4 memakai cache static stale-while-revalidate dan cache semua halaman utama.
+- Service Worker V5 memakai cache static stale-while-revalidate, versioned assets, dan cache semua halaman utama.
 - Preconnect ke Google Apps Script ditambahkan.
 - API diberi timeout dan error message yang lebih jelas.
 
@@ -25,7 +28,8 @@ Optimasi Code.gs:
 - eventUsage_ hanya membaca kolom Event ID, bukan seluruh 18 kolom registrasi.
 - publicStatus/adminLookup membaca satu baris peserta, bukan memetakan seluruh tabel registrasi.
 - Pencarian kode registrasi memakai TextFinder.
-- Validasi duplikasi peserta tim membaca data event satu kali, bukan berulang untuk setiap anggota.
+- Registrasi baru menyimpan anggota tim sebagai [] dan tidak lagi memvalidasi jumlah/nama anggota saat submit.
+- Data registrasi lama yang sudah memiliki anggota tetap dapat dibaca di admin.
 - Spreadsheet instance dipakai ulang di satu eksekusi Apps Script.
 
 CARA PASANG FRONTEND:
@@ -58,7 +62,7 @@ CARA PASANG BACKEND:
 
 SETELAH UPDATE:
 - Lakukan hard refresh sekali (Ctrl+Shift+R), atau tutup-buka tab di HP.
-- Karena Service Worker versi dinaikkan ke V4, cache lama akan dibersihkan otomatis setelah SW baru aktif.
+- Karena Service Worker versi dinaikkan ke V5, cache lama akan dibersihkan otomatis setelah SW baru aktif.
 
 CATATAN KEAMANAN:
 - Ganti ADMIN_PIN sebelum dipakai produksi apabila PIN saat ini sudah pernah dibagikan.

@@ -5,7 +5,7 @@ let EVENTS = [];
 let selectedEvent = null;
 let latestCode = "";
 
-const PUBLIC_CACHE_KEY = "spari_public_config_v4";
+const PUBLIC_CACHE_KEY = "spari_public_config_v5";
 const PUBLIC_CACHE_TTL = 2 * 60 * 1000;
 const QR_SRC = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 
@@ -107,107 +107,33 @@ function renderPublicConfig() {
 $("phone").addEventListener("input", e => e.target.value = e.target.value.replace(/[^\d+]/g,""));
 $("aeonId").addEventListener("input", e => e.target.value = e.target.value.replace(/\s/g,""));
 $("eventId").addEventListener("change", updateEventUI);
-$("addMember").addEventListener("click", addMemberRow);
-
-function memberRows() {
-  return [...document.querySelectorAll(".member-row")];
-}
-
-function addMemberRow() {
-  const ev = selectedEvent;
-  if (!ev || ev.type !== "team") return;
-  const maxAdditional = Math.max(0, (ev.max || 12) - 1);
-  if (!ev.flexible && memberRows().length >= maxAdditional) {
-    toast("Jumlah anggota sudah mencapai batas maksimum.");
-    return;
-  }
-
-  const row = document.createElement("div");
-  row.className = "member-row";
-  row.innerHTML = `
-    <input class="control m-id" autocomplete="off" placeholder="ID AEON" aria-label="ID AEON anggota">
-    <input class="control m-name" autocomplete="name" placeholder="Nama anggota" aria-label="Nama anggota">
-    <input class="control m-division" autocomplete="organization" placeholder="Divisi" aria-label="Divisi anggota">
-    <button type="button" class="remove-member" aria-label="Hapus anggota">×</button>`;
-  row.querySelector(".remove-member").onclick = () => row.remove();
-  $("members").appendChild(row);
-}
-
-function fillMinimumMembers(ev) {
-  $("members").innerHTML = "";
-  if (ev.flexible) return;
-  const additional = Math.max(0, (ev.min || 1) - 1);
-  for (let i = 0; i < additional; i++) addMemberRow();
-}
 
 function updateEventUI() {
   selectedEvent = EVENTS.find(x => x.id === $("eventId").value) || null;
   if (!selectedEvent) {
     $("eventInfo").classList.remove("show");
-    $("teamPanel").classList.remove("show");
     $("paymentBox").classList.remove("show");
-    $("members").innerHTML = "";
-    $("teamName").required = false;
     return;
   }
 
   const ev = selectedEvent;
   $("eventName").textContent = `${ev.no}. ${ev.name}`;
   $("eventFee").textContent = ev.fee ? rupiah(ev.fee) : "GRATIS";
-  $("eventDesc").textContent = ev.note || (ev.type === "team" ? "Lomba tim." : "Lomba personal.");
+
+  const baseNote = ev.note || (ev.type === "team" ? "Lomba tim." : "Lomba personal.");
+  $("eventDesc").textContent = ev.type === "team"
+    ? `${baseNote} Pendaftaran cukup oleh 1 perwakilan / PIC tim; nama anggota tidak perlu diisi.`
+    : baseNote;
   $("eventInfo").classList.add("show");
 
-  if (ev.type === "team") {
-    $("teamPanel").classList.add("show");
-    $("teamName").required = true;
-    $("teamRule").textContent = ev.flexible
-      ? "jumlah anggota mengikuti ketentuan panitia"
-      : `${ev.min}-${ev.max} orang termasuk pendaftar`;
-    fillMinimumMembers(ev);
-  } else {
-    $("teamPanel").classList.remove("show");
-    $("teamName").required = false;
-    $("teamName").value = "";
-    $("members").innerHTML = "";
-  }
-
   if (ev.fee > 0) {
-    const s = PUBLIC?.settings || {};
+    const cfg = PUBLIC?.settings || {};
     $("paymentText").textContent =
-      `Biaya ${rupiah(ev.fee)} • ${s.bank || "CIMB"} ${s.accountNumber || ""} a.n ${s.accountName || ""}. Status pembayaran akan diverifikasi panitia.`;
+      `Biaya ${rupiah(ev.fee)} • ${cfg.bank || "CIMB"} ${cfg.accountNumber || ""} a.n ${cfg.accountName || ""}. Status pembayaran akan diverifikasi panitia.`;
     $("paymentBox").classList.add("show");
   } else {
     $("paymentBox").classList.remove("show");
   }
-}
-
-function collectMembers() {
-  return memberRows().map(row => ({
-    id:row.querySelector(".m-id").value.trim(),
-    name:row.querySelector(".m-name").value.trim(),
-    division:row.querySelector(".m-division").value.trim()
-  })).filter(x => x.id || x.name || x.division);
-}
-
-function validateTeam(ev) {
-  if (ev.type !== "team") return true;
-  const members = collectMembers();
-
-  for (const m of members) {
-    if (!m.id || !m.name || !m.division) {
-      toast("Lengkapi ID AEON, nama, dan divisi seluruh anggota tim.", "error");
-      return false;
-    }
-  }
-
-  if (!ev.flexible) {
-    const total = 1 + members.length;
-    if (total < ev.min || total > ev.max) {
-      toast(`Jumlah peserta harus ${ev.min}-${ev.max} orang termasuk pendaftar.`, "error");
-      return false;
-    }
-  }
-  return true;
 }
 
 async function renderSuccessQr(url) {
@@ -233,8 +159,6 @@ $("regForm").addEventListener("submit", async (e) => {
     toast("Pilih cabang lomba.", "error");
     return;
   }
-  if (!validateTeam(selectedEvent)) return;
-
   const btn = $("submitBtn");
   btn.disabled = true;
   btn.classList.add("loading");
@@ -247,9 +171,7 @@ $("regForm").addEventListener("submit", async (e) => {
       name:$("name").value.trim(),
       division:$("division").value.trim(),
       phone:$("phone").value.trim(),
-      eventId:selectedEvent.id,
-      teamName:selectedEvent.type === "team" ? $("teamName").value.trim() : "",
-      members:selectedEvent.type === "team" ? collectMembers() : []
+      eventId:selectedEvent.id
     }, {timeout:25000});
 
     latestCode = result.code;
