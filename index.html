@@ -3,94 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#b91c1c">
-<meta name="description" content="Registrasi perlombaan SPARI HUT RI ke-81 AEON Alam Sutera.">
+<meta name="theme-color" content="#09090b">
+<meta name="description" content="Registrasi SPARI HUT RI ke-81 AEON Alam Sutera — perlombaan, jadwal, dan kartu peserta digital.">
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./assets/icon.svg">
-<link rel="stylesheet" href="./assets/app.css?v=5">
-<title>Registrasi SPARI HUT RI 81</title>
+<link rel="preload" as="image" href="./assets/media/mall-alam-sutera.webp" fetchpriority="high">
+<link rel="stylesheet" href="./assets/app.css?v=8">
+<title>SPARI HUT RI 81 — AEON Alam Sutera</title>
 </head>
-<body class="bg-public">
-<div class="public-shell">
-  <header class="public-top">
-    <div class="brand">
-      <div class="brand-logo">81</div>
-      <div><strong>SPARI • AEON PEOPLE ALS</strong><small>Serikat Pekerja AEON Retail Indonesia</small></div>
-    </div>
-    <nav class="public-nav">
+<body class="campaign-page">
+  <header class="campaign-nav">
+    <a class="campaign-brand" href="#top" aria-label="SPARI AEON">
+      <img src="./assets/media/brand.webp" alt="SPARI dan AEON" width="1200" height="280">
+    </a>
+    <nav class="campaign-links" aria-label="Navigasi utama">
+      <a href="#agenda">Agenda</a>
+      <a href="#lomba">Lomba</a>
       <a href="./status.html">Cek Status</a>
-      <a href="./admin.html">Panitia</a>
+      <a class="nav-cta" href="#daftar">Daftar</a>
     </nav>
   </header>
 
-  <main class="public-grid">
-    <section class="public-hero">
-      <div class="kicker"><i></i> Perayaan HUT RI ke-81</div>
-      <h1>Semarakan 17-an di AEON Alam Sutera</h1>
-      <p>Dalam rangka memperingati HUT Kemerdekaan RI, mari rayakan semangat 17-an bersama seluruh karyawan AEON Alam Sutera. Siapkan kekompakan dan energi terbaik untuk memeriahkan perlombaan!</p>
-      <div class="hero-info" aria-label="Informasi registrasi">
-        <div class="hero-mini"><strong id="heroEventCount">Memuat cabang…</strong><span>Pilih lomba yang ingin kamu ikuti.</span></div>
-        <div class="hero-mini"><strong>Registrasi online</strong><span>Cepat, aman, dan kartu peserta langsung tersedia.</span></div>
+  <main id="top">
+    <section class="campaign-hero" aria-labelledby="heroTitle">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <div class="hero-81" aria-hidden="true">81</div>
+      <div class="hero-copy reveal-up">
+        <div class="eyebrow"><span></span> SPARI × AEON PEOPLE ALS · HUT RI KE-81</div>
+        <h1 id="heroTitle">SATU AEON.<br><em>SATU PERAYAAN.</em></h1>
+        <p>Semarak kemerdekaan hadir lagi di AEON Alam Sutera. Pilih cabangmu, daftarkan diri atau tim melalui satu PIC, lalu bawa energi terbaikmu.</p>
+        <div class="hero-actions">
+          <a class="campaign-btn campaign-btn-primary" href="#daftar">DAFTAR SEKARANG <span>↗</span></a>
+          <a class="campaign-btn campaign-btn-ghost" href="#lomba">LIHAT CABANG <span>↓</span></a>
+        </div>
       </div>
-      <div class="announcement" id="announcement" role="status" aria-live="polite"></div>
+      <div class="hero-bottom">
+        <div><span>LOCATION</span><strong>AEON Alam Sutera</strong></div>
+        <div><span>PROGRAM</span><strong>16–24 Agustus 2026</strong></div>
+        <div><span>REGISTRATION</span><strong id="heroRegState">Menghubungkan…</strong></div>
+      </div>
     </section>
 
-    <section class="public-card">
-      <div class="card-head">
-        <div><h2>Form Registrasi</h2><p id="registrationState">Memuat status pendaftaran…</p></div>
-        <div class="step-chip">01</div>
+    <section class="manifesto section-pad">
+      <div class="section-kicker">01 / THE CELEBRATION</div>
+      <div class="manifesto-grid">
+        <h2>BUKAN SEKADAR<br>LOMBA 17-AN.</h2>
+        <div class="manifesto-copy">
+          <p>Ini ruang untuk seru-seruan, adu kompak, dan merayakan kemerdekaan bareng seluruh AEON People Alam Sutera.</p>
+          <p class="muted">Registrasi tim dibuat ringan: cukup satu perwakilan / PIC. Anggota tim tidak perlu diinput satu per satu.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="agenda section-pad" id="agenda">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 / EVENT SCHEDULE</div>
+          <h2>AGENDA<br><span>UTAMA.</span></h2>
+        </div>
+        <p>Jadwal yang sudah dikonfirmasi. Detail cabang lain akan diperbarui setelah informasi resmi panitia tersedia.</p>
       </div>
 
-      <form id="regForm" class="form-body" novalidate>
-        <div class="section-title">Data peserta / penanggung jawab tim</div>
-        <p class="section-help">Untuk lomba tim, cukup <b>1 orang perwakilan / PIC</b> yang mendaftar. Nama anggota tim tidak perlu diisi.</p>
-        <div class="grid2">
-          <div class="field"><label>ID AEON *</label><input class="control" id="aeonId" autocomplete="off" placeholder="Contoh: 2507026" required></div>
-          <div class="field"><label>Nama lengkap *</label><input class="control" id="name" autocomplete="name" placeholder="Nama peserta / perwakilan" required></div>
-          <div class="field"><label>Divisi *</label><input class="control" id="division" autocomplete="organization" placeholder="Contoh: VMD" required></div>
-          <div class="field"><label>No. WhatsApp *</label><input class="control" id="phone" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required></div>
+      <div class="timeline" id="agendaTimeline"><div class="agenda-loading">Menyiapkan jadwal…</div></div>
+    </section>
+
+    <section class="competitions section-pad" id="lomba">
+      <div class="section-head section-head-light">
+        <div>
+          <div class="section-kicker">03 / COMPETITIONS</div>
+          <h2>PILIH<br><span>ARENA.</span></h2>
+        </div>
+        <p>Klik cabang untuk langsung memilihnya di form registrasi. Status dan kuota mengikuti data panitia secara real-time.</p>
+      </div>
+      <div class="competition-grid" id="eventShowcase" aria-live="polite">
+        <div class="event-skeleton"></div><div class="event-skeleton"></div><div class="event-skeleton"></div><div class="event-skeleton"></div>
+      </div>
+    </section>
+
+    <section class="memories section-pad">
+      <div class="section-head section-head-light">
+        <div>
+          <div class="section-kicker">04 / LAST YEAR'S ENERGY</div>
+          <h2>SEMANGAT YANG<br><span>DIBAWA LAGI.</span></h2>
+        </div>
+        <p>Potongan dokumentasi kegiatan sebelumnya—tahun ini kita bikin lebih ramai, lebih rapi, dan lebih berkesan.</p>
+      </div>
+      <div class="photo-wall">
+        <figure class="photo-card photo-a"><img src="./assets/media/memory-01.webp" loading="lazy" decoding="async" alt="Dokumentasi kegiatan SPARI sebelumnya"><figcaption>01 · CELEBRATE</figcaption></figure>
+        <figure class="photo-card photo-b"><img src="./assets/media/memory-02.webp" loading="lazy" decoding="async" alt="Dokumentasi panggung kegiatan SPARI sebelumnya"><figcaption>02 · PERFORM</figcaption></figure>
+        <figure class="photo-card photo-c"><img src="./assets/media/memory-03.webp" loading="lazy" decoding="async" alt="Dokumentasi peserta kegiatan SPARI sebelumnya"><figcaption>03 · TOGETHER</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="register-zone" id="daftar">
+      <div class="register-intro">
+        <div class="section-kicker">05 / REGISTRATION</div>
+        <h2>READY<br>TO <span>COMPETE?</span></h2>
+        <p>Satu formulir, satu PIC, selesai. Untuk cabang tim, cukup perwakilan yang mendaftarkan.</p>
+        <div class="register-note">
+          <span>01</span><p>Isi identitas PIC</p>
+          <span>02</span><p>Pilih cabang lomba</p>
+          <span>03</span><p>Simpan kode & QR</p>
+        </div>
+      </div>
+
+      <section class="register-card" aria-labelledby="formTitle">
+        <div class="register-card-head">
+          <div>
+            <span>SPARI REGISTRATION</span>
+            <h3 id="formTitle">Daftarkan dirimu.</h3>
+            <p id="registrationState">Memuat status pendaftaran…</p>
+          </div>
+          <div class="live-dot" aria-hidden="true"><i></i> LIVE</div>
         </div>
 
-        <div class="section-title">Pilih cabang lomba</div>
-        <div class="field"><label>Cabang lomba *</label><select class="control" id="eventId" required disabled aria-busy="true"><option value="">Memuat cabang lomba…</option></select></div>
+        <form id="regForm" class="form-body-v8" novalidate>
+          <div class="form-section-label">DATA PESERTA / PIC TIM</div>
+          <div class="grid2">
+            <div class="field-v8"><label for="aeonId">ID AEON *</label><input class="control-v8" id="aeonId" autocomplete="off" placeholder="Contoh: 2507026" required></div>
+            <div class="field-v8"><label for="name">Nama lengkap *</label><input class="control-v8" id="name" autocomplete="name" placeholder="Nama peserta / perwakilan" required></div>
+            <div class="field-v8"><label for="division">Divisi *</label><input class="control-v8" id="division" autocomplete="organization" placeholder="Contoh: VMD" required></div>
+            <div class="field-v8"><label for="phone">No. WhatsApp *</label><input class="control-v8" id="phone" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required></div>
+          </div>
 
-        <div class="event-info" id="eventInfo">
-          <div class="event-row"><div class="event-name" id="eventName"></div><div class="event-fee" id="eventFee"></div></div>
-          <div class="event-desc" id="eventDesc"></div>
-        </div>
+          <div class="pic-hint"><strong>TEAM ENTRY</strong><span>Untuk lomba tim, cukup 1 perwakilan / PIC. Tidak perlu mengisi nama anggota tim.</span></div>
 
-        <div class="payment-box" id="paymentBox"><b>Informasi pembayaran</b><span id="paymentText"></span></div>
+          <div class="form-section-label">CABANG LOMBA</div>
+          <div class="field-v8"><label for="eventId">Pilih cabang *</label><select class="control-v8" id="eventId" required disabled aria-busy="true"><option value="">Memuat cabang lomba…</option></select></div>
 
-        <label class="agree"><input type="checkbox" id="agree" required><span>Saya memastikan seluruh data yang dimasukkan sudah benar dan dapat digunakan panitia untuk pendataan perlombaan.</span></label>
+          <div class="event-info-v8" id="eventInfo">
+            <div><span id="eventMetaLabel">SELECTED EVENT</span><strong id="eventName"></strong><p id="eventDesc"></p></div>
+            <b id="eventFee"></b>
+          </div>
 
-        <button type="submit" class="primary-btn" id="submitBtn" disabled>
-          <span class="spinner"></span><span class="btn-label">Kirim Registrasi →</span>
-        </button>
-      </form>
+          <div class="payment-box-v8" id="paymentBox"><span>PAYMENT</span><p id="paymentText"></p></div>
+
+          <label class="agree-v8"><input type="checkbox" id="agree" required><span>Saya memastikan data yang dimasukkan sudah benar dan dapat digunakan panitia untuk pendataan perlombaan.</span></label>
+
+          <button type="submit" class="submit-v8" id="submitBtn" disabled>
+            <span class="spinner"></span><span class="btn-label">KIRIM REGISTRASI</span><span class="submit-arrow">↗</span>
+          </button>
+        </form>
+      </section>
     </section>
   </main>
-  <footer class="public-footer"><span>CREATED BY</span><strong>FINH</strong></footer>
-</div>
 
-<div class="modal" id="successModal">
-  <div class="modal-card modal-center">
-    <div class="success-icon">✓</div>
-    <h3>Registrasi berhasil</h3>
-    <p>Data telah diterima panitia. Simpan kode dan QR registrasi ini.</p>
-    <div class="code-box" id="successCode">-</div>
-    <div class="qr-wrap" id="successQr"></div>
-    <p id="successInfo"></p>
-    <div class="modal-actions">
-      <button class="secondary-btn" type="button" id="copyCode">Salin kode</button>
-      <button class="primary-btn" type="button" id="openCard"><span class="btn-label">Buka kartu peserta</span></button>
+  <footer class="campaign-footer">
+    <div class="footer-brand"><img src="./assets/media/brand.webp" alt="SPARI dan AEON" width="1200" height="280"></div>
+    <div class="footer-meta"><span>SPARI HUT RI 81</span><span>AEON ALAM SUTERA · 2026</span></div>
+    <div class="footer-credit"><small>CREATED BY</small><strong>FINH</strong></div>
+  </footer>
+
+  <div class="modal payment-reminder-modal" id="paymentReminderModal" aria-hidden="true">
+    <div class="modal-card payment-reminder-card v8-dialog" role="dialog" aria-modal="true" aria-labelledby="paymentReminderTitle">
+      <button class="modal-x" type="button" id="closePaymentReminder" aria-label="Tutup">×</button>
+      <div class="reminder-kicker">PAYMENT REMINDER</div>
+      <h3 id="paymentReminderTitle">Sebelum registrasi dikirim.</h3>
+      <p id="paymentReminderText">Jika sudah melakukan pembayaran, kirim bukti pembayaran ke Bapak Faiz.</p>
+      <div class="reminder-event" id="paymentReminderEvent"></div>
+      <a class="wa-quick" id="paymentWaLink" href="https://wa.me/6285813035634" target="_blank" rel="noopener">WhatsApp Bapak Faiz · +62 858-1303-5634 <span>↗</span></a>
+      <div class="modal-actions payment-reminder-actions">
+        <button class="secondary-btn" type="button" id="cancelPaymentReminder">Kembali</button>
+        <button class="primary-btn" type="button" id="confirmPaymentReminder"><span class="btn-label">Mengerti, Kirim Registrasi →</span></button>
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="modal" id="successModal">
+    <div class="modal-card modal-center v8-dialog success-v8">
+      <div class="success-icon">✓</div>
+      <div class="reminder-kicker">REGISTRATION COMPLETE</div>
+      <h3>Registrasi berhasil.</h3>
+      <p>Data sudah diterima panitia. Simpan kode dan QR ini.</p>
+      <div class="code-box" id="successCode">-</div>
+      <div class="qr-wrap" id="successQr"></div>
+      <p id="successInfo"></p>
+      <div class="modal-actions">
+        <button class="secondary-btn" type="button" id="copyCode">Salin kode</button>
+        <button class="primary-btn" type="button" id="openCard"><span class="btn-label">Buka kartu peserta</span></button>
+      </div>
+    </div>
+  </div>
 
 <script src="./config.js" defer></script>
-<script src="./assets/common.js" defer></script>
-<script src="./assets/index.js" defer></script>
+<script src="./assets/site-data.js?v=8" defer></script>
+<script src="./assets/common.js?v=8" defer></script>
+<script src="./assets/index.js?v=8" defer></script>
 </body>
 </html>

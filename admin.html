@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="icon" href="./assets/icon.svg">
-<link rel="stylesheet" href="./assets/app.css?v=5">
+<link rel="stylesheet" href="./assets/app.css?v=8">
 <title>Dashboard Panitia SPARI</title>
 </head>
 <body class="admin-body">
@@ -103,7 +103,7 @@
               <div><label>Nama bank</label><input class="dark-control" id="setBank" style="width:100%"></div>
               <div><label>Nomor rekening</label><input class="dark-control" id="setAccount" style="width:100%"></div>
               <div><label>Nama rekening</label><input class="dark-control" id="setAccountName" style="width:100%"></div>
-              <div style="grid-column:1/-1"><label>Pengumuman</label><textarea class="dark-control" id="setAnnouncement" style="width:100%"></textarea></div>
+              <div style="grid-column:1/-1"><label>Pesan popup pembayaran</label><textarea class="dark-control" id="setAnnouncement" style="width:100%" placeholder="Contoh: Jika sudah melakukan pembayaran, kirim bukti pembayaran ke nomor Bapak Faiz."></textarea><small style="display:block;margin-top:6px;color:#748399;font-size:8px;line-height:1.5">Pesan ini hanya muncul saat peserta memilih lomba berbayar lalu menekan Kirim Registrasi.</small></div>
             </div>
             <button class="dark-btn red" type="submit" style="margin-top:12px">Simpan Pengaturan</button>
           </form>
@@ -135,7 +135,7 @@
 </div>
 
 <script src="./config.js" defer></script>
-<script src="./assets/common.js" defer></script>
-<script src="./assets/admin.js" defer></script>
+<script src="./assets/common.js?v=8" defer></script>
+<script src="./assets/admin.js?v=8" defer></script>
 </body>
 </html>

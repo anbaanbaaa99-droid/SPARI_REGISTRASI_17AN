@@ -48,7 +48,7 @@ function renderTicket(x) {
   $("ticketEvent").textContent = `${x.eventNo}. ${x.eventName}`;
   $("ticketCode").textContent = x.code;
   $("ticketDivision").textContent = x.division || "-";
-  $("ticketTeam").textContent = x.teamName || "-";
+  $("ticketTeam").textContent = x.teamName || "PIC / Perwakilan";
   $("ticketFee").textContent = x.fee ? rupiah(x.fee) : "Gratis";
   $("ticketCreated").textContent = x.timestamp || "-";
 
