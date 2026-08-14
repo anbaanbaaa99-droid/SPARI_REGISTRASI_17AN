@@ -1,4 +1,71 @@
-eventMeta: {
+window.SPARI_SITE_DATA = {
+  paymentWhatsapp: "6285813035634",
+  paymentWhatsappDisplay: "+62 858-1303-5634",
+  agenda: [
+  {
+    date: "16",
+    month: "AUG",
+    day: "SUN",
+    label: "NIGHT MATCH",
+    title: "FUTSAL",
+    lines: [
+      "Lapangan I · 23.00–00.00",
+      "Lapangan II · 23.00–01.00"
+    ],
+    featured: true
+  },
+
+  {
+    date: "17",
+    month: "AUG",
+    day: "MON",
+    label: "MEETING ROOM",
+    title: "PS4 · eFootball",
+    lines: [
+      "23.00–selesai · 2 set PlayStation 4"
+    ]
+  },
+
+  {
+    date: "20",
+    month: "AUG",
+    day: "THU",
+    label: "COMPETITION DAY",
+    title: "NYANYI + BADMINTON",
+    lines: [
+      "Nyanyi · 15.00",
+      "Badminton · 23.00"
+    ]
+  },
+
+  {
+    date: "22",
+    month: "AUG",
+    day: "SAT",
+    label: "NIGHT GAME",
+    title: "BASKET 3X3",
+    lines: [
+      "Start · 23.00"
+    ]
+  },
+
+  {
+    date: "24",
+    month: "AUG",
+    day: "MON",
+    label: "FUN GAMES DAY · JAM & LOKASI MENYUSUL",
+    title: "5 CABANG, 1 HARI",
+    tags: [
+      "Pancingan Kerupuk",
+      "Balap Karung + Helm",
+      "Pindahkan Air Pakai Kaki",
+      "Tarik Tambang",
+      "Pindahkan Bola Pakai Stik"
+    ],
+    wide: true
+  }
+],
+  eventMeta: {
   "1": {
     date:"17 AUG",
     time:"23.00–SELESAI",
@@ -68,4 +135,4 @@ eventMeta: {
     place:"MENYUSUL",
     badge:"FUN GAMES DAY"
   }
-}
+};
