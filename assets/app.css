@@ -651,3 +651,86 @@ body.modal-open{overflow:hidden}
     transition:none!important;
   }
 }
+
+/* ===== FIX KONTRAS KARTU PESERTA ===== */
+
+.ticket{
+  background:#ffffff !important;
+  color:#111827 !important;
+}
+
+.ticket-body{
+  background:#ffffff !important;
+  color:#111827 !important;
+}
+
+.ticket-head{
+  color:#ffffff !important;
+}
+
+.ticket-head strong,
+.ticket-head small,
+#ticketCode{
+  color:#ffffff !important;
+}
+
+.ticket-field{
+  background:#f8fafc !important;
+  border:1px solid #d6dbe3 !important;
+}
+
+.ticket-field span{
+  color:#475569 !important;
+  font-weight:800 !important;
+  opacity:1 !important;
+}
+
+.ticket-field b{
+  color:#111827 !important;
+  font-weight:800 !important;
+  opacity:1 !important;
+}
+
+.ticket-bottom h3{
+  color:#111827 !important;
+  font-weight:900 !important;
+  opacity:1 !important;
+}
+
+.ticket-bottom p{
+  color:#4b5563 !important;
+  opacity:1 !important;
+}
+
+.ticket-actions button{
+  color:#111827 !important;
+  background:#ffffff !important;
+  border:1px solid #d1d5db !important;
+  font-weight:750 !important;
+}
+
+.ticket-statuses .badge{
+  opacity:1 !important;
+  font-weight:800 !important;
+}
+
+.badge.is-unpaid{
+  background:#fef3c7 !important;
+  color:#92400e !important;
+}
+
+.badge.is-paid,
+.badge.is-present{
+  background:#dcfce7 !important;
+  color:#166534 !important;
+}
+
+.badge.is-free{
+  background:#dbeafe !important;
+  color:#1d4ed8 !important;
+}
+
+.badge.is-absent{
+  background:#e5e7eb !important;
+  color:#374151 !important;
+}
