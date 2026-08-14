@@ -734,3 +734,45 @@ body.modal-open{overflow:hidden}
   background:#e5e7eb !important;
   color:#374151 !important;
 }
+
+/* ===== FIX SUCCESS POPUP TEXT ===== */
+
+#successModal .modal-card{
+  color:#f3f4f6;
+}
+
+#successModal h3{
+  color:#ffffff !important;
+}
+
+#successModal p{
+  color:#bfc7d4 !important;
+}
+
+#successCode{
+  background:#ffffff !important;
+  color:#0f172a !important;
+  border:2px solid #d1d5db !important;
+  font-weight:900 !important;
+  font-size:20px !important;
+  line-height:1.2;
+  letter-spacing:.05em;
+  text-align:center;
+  text-transform:uppercase;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+#successInfo{
+  color:#d1d5db !important;
+  font-weight:600;
+}
+
+#successModal .secondary-btn{
+  background:#141826 !important;
+  color:#ffffff !important;
+  border:1px solid #2a3142 !important;
+}
+
+#successModal .primary-btn{
+  color:#ffffff !important;
+}
