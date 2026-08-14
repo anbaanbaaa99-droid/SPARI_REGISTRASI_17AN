@@ -1,4 +1,4 @@
-const CACHE = "spari81-v8.1";
+const CACHE = "spari81-v8.2";
 const STATIC = [
   "./",
   "./index.html",
@@ -7,7 +7,6 @@ const STATIC = [
   "./checkin.html",
   "./assets/app.css?v=8.1",
   "./assets/common.js?v=8.1",
-  "./assets/site-data.js?v=8.1",
   "./assets/index.js?v=8.1",
   "./assets/status.js?v=8.1",
   "./assets/admin.js?v=8.1",
@@ -55,7 +54,10 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  if (url.pathname.endsWith("/config.js")) return;
+  if (
+  url.pathname.endsWith("/config.js") ||
+  url.pathname.endsWith("/assets/site-data.js")
+) return;
   if (request.mode === "navigate") return event.respondWith(networkFirst(request));
   if (["style","script","image","font"].includes(request.destination) || url.pathname.endsWith(".webmanifest")) {
     event.respondWith(staleWhileRevalidate(request));
