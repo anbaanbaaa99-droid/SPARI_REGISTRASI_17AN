@@ -198,6 +198,7 @@ async function renderSuccessQr(url) {
 const regForm = $("regForm");
 const paymentReminderModal = $("paymentReminderModal");
 let pendingRegistration = false;
+let paymentCloseTimer = null;
 
 function openPaymentReminder() {
   const settings = PUBLIC?.settings || {};
@@ -208,16 +209,27 @@ function openPaymentReminder() {
   const message = encodeURIComponent(`Halo Pak Faiz, saya ingin mengirim bukti pembayaran untuk ${selectedEvent?.name || "lomba SPARI HUT RI 81"}.`);
   $("paymentWaLink").href = `https://wa.me/${PAYMENT_WA}?text=${message}`;
 
+  clearTimeout(paymentCloseTimer);
+  paymentReminderModal.classList.remove("is-closing");
+  // Force a fresh animation even when the dialog is reopened quickly.
+  paymentReminderModal.classList.remove("show");
+  void paymentReminderModal.offsetWidth;
   paymentReminderModal.classList.add("show");
   paymentReminderModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
-  setTimeout(() => $("confirmPaymentReminder")?.focus(), 0);
+  setTimeout(() => $("confirmPaymentReminder")?.focus(), 360);
 }
 
 function closePaymentReminder() {
-  paymentReminderModal.classList.remove("show");
+  if (!paymentReminderModal.classList.contains("show") || paymentReminderModal.classList.contains("is-closing")) return;
   paymentReminderModal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
+  paymentReminderModal.classList.add("is-closing");
+
+  clearTimeout(paymentCloseTimer);
+  paymentCloseTimer = setTimeout(() => {
+    paymentReminderModal.classList.remove("show", "is-closing");
+    document.body.classList.remove("modal-open");
+  }, 230);
 }
 
 async function sendRegistration() {

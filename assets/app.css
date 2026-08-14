@@ -523,85 +523,131 @@ body.modal-open{overflow:hidden}
 .status-v8 .ticket{border-radius:0;border-color:#292930;box-shadow:0 28px 70px rgba(0,0,0,.34)}
 .agenda-loading{padding:28px 0;border-bottom:1px solid #bdbab1;color:#66666c;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 
-/* ===== FIX KONTRAS KARTU PESERTA ===== */
-
-.ticket{
-  background:#ffffff !important;
-  color:#111827 !important;
+/* =========================================================
+   V8.1 — POPUP MOTION / MICRO-INTERACTIONS
+   Payment reminder + success dialog
+   ========================================================= */
+@keyframes v81BackdropIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes v81BackdropOut{
+  from{opacity:1}
+  to{opacity:0}
+}
+@keyframes v81PopupIn{
+  0%{opacity:0;transform:translateY(34px) scale(.94);filter:blur(5px)}
+  58%{opacity:1;transform:translateY(-5px) scale(1.012);filter:blur(0)}
+  78%{transform:translateY(2px) scale(.997)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes v81PopupOut{
+  from{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  to{opacity:0;transform:translateY(18px) scale(.97);filter:blur(3px)}
+}
+@keyframes v81PopupItem{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes v81CloseIn{
+  from{opacity:0;transform:rotate(-70deg) scale(.65)}
+  to{opacity:1;transform:rotate(0) scale(1)}
+}
+@keyframes v81SuccessIcon{
+  0%{opacity:0;transform:scale(.45) rotate(-18deg)}
+  62%{opacity:1;transform:scale(1.12) rotate(4deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
 }
 
-.ticket-body{
-  background:#ffffff !important;
-  color:#111827 !important;
+.campaign-page .payment-reminder-modal.show,
+.campaign-page #successModal.show{
+  animation:v81BackdropIn .28s ease both;
+}
+.campaign-page .payment-reminder-modal.show .payment-reminder-card,
+.campaign-page #successModal.show .success-v8{
+  animation:v81PopupIn .52s cubic-bezier(.16,1,.3,1) both;
+  transform-origin:50% 85%;
+  will-change:transform,opacity,filter;
+}
+.campaign-page .payment-reminder-modal.is-closing{
+  display:flex;
+  animation:v81BackdropOut .22s ease both;
+}
+.campaign-page .payment-reminder-modal.is-closing .payment-reminder-card{
+  animation:v81PopupOut .22s ease both;
 }
 
-.ticket-head{
-  color:#ffffff !important;
+/* content enters in a small stagger, so the popup feels intentional */
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .modal-x{
+  animation:v81CloseIn .34s .16s cubic-bezier(.16,1,.3,1) both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .reminder-kicker{
+  animation:v81PopupItem .38s .12s ease both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing) h3{
+  animation:v81PopupItem .42s .17s ease both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing)>div>p,
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .payment-reminder-card>p{
+  animation:v81PopupItem .42s .21s ease both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .reminder-event{
+  animation:v81PopupItem .42s .25s ease both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .wa-quick{
+  animation:v81PopupItem .42s .29s ease both;
+}
+.campaign-page .payment-reminder-modal.show:not(.is-closing) .payment-reminder-actions{
+  animation:v81PopupItem .42s .33s ease both;
 }
 
-.ticket-head strong,
-.ticket-head small,
-#ticketCode{
-  color:#ffffff !important;
+/* tiny tactile feedback */
+.campaign-page .payment-reminder-actions button,
+.campaign-page .wa-quick,
+.campaign-page .modal-x{
+  transition:transform .16s ease,background-color .16s ease,border-color .16s ease,color .16s ease;
+}
+.campaign-page .payment-reminder-actions button:active,
+.campaign-page .wa-quick:active{
+  transform:scale(.975);
+}
+.campaign-page .modal-x:hover{transform:rotate(4deg)}
+.campaign-page .modal-x:active{transform:scale(.92)}
+
+/* success popup gets its own check animation */
+.campaign-page #successModal.show .success-icon{
+  animation:v81SuccessIcon .56s .18s cubic-bezier(.16,1,.3,1) both;
+}
+.campaign-page #successModal.show .success-v8 h3{animation:v81PopupItem .4s .24s ease both}
+.campaign-page #successModal.show .success-v8>p{animation:v81PopupItem .4s .28s ease both}
+.campaign-page #successModal.show .code-box{animation:v81PopupItem .4s .32s ease both}
+.campaign-page #successModal.show .qr-wrap{animation:v81PopupItem .4s .36s ease both}
+.campaign-page #successModal.show .modal-actions{animation:v81PopupItem .4s .40s ease both}
+
+@media(max-width:620px){
+  @keyframes v81PopupIn{
+    0%{opacity:0;transform:translateY(54px) scale(.985)}
+    68%{opacity:1;transform:translateY(-4px) scale(1)}
+    100%{opacity:1;transform:translateY(0) scale(1)}
+  }
+  @keyframes v81PopupOut{
+    from{opacity:1;transform:translateY(0) scale(1)}
+    to{opacity:0;transform:translateY(38px) scale(.99)}
+  }
+  .campaign-page .payment-reminder-modal.show .payment-reminder-card,
+  .campaign-page #successModal.show .success-v8{
+    transform-origin:50% 100%;
+  }
 }
 
-.ticket-field{
-  background:#f8fafc !important;
-  border:1px solid #d6dbe3 !important;
-}
-
-.ticket-field span{
-  color:#475569 !important;
-  font-weight:800 !important;
-  opacity:1 !important;
-}
-
-.ticket-field b{
-  color:#111827 !important;
-  font-weight:800 !important;
-  opacity:1 !important;
-}
-
-.ticket-bottom h3{
-  color:#111827 !important;
-  font-weight:900 !important;
-  opacity:1 !important;
-}
-
-.ticket-bottom p{
-  color:#4b5563 !important;
-  opacity:1 !important;
-}
-
-.ticket-actions button{
-  color:#111827 !important;
-  background:#ffffff !important;
-  border:1px solid #d1d5db !important;
-  font-weight:750 !important;
-}
-
-.ticket-statuses .badge{
-  opacity:1 !important;
-  font-weight:800 !important;
-}
-
-.badge.is-unpaid{
-  background:#fef3c7 !important;
-  color:#92400e !important;
-}
-
-.badge.is-paid,
-.badge.is-present{
-  background:#dcfce7 !important;
-  color:#166534 !important;
-}
-
-.badge.is-free{
-  background:#dbeafe !important;
-  color:#1d4ed8 !important;
-}
-
-.badge.is-absent{
-  background:#e5e7eb !important;
-  color:#374151 !important;
+@media(prefers-reduced-motion:reduce){
+  .campaign-page .payment-reminder-modal.show,
+  .campaign-page .payment-reminder-modal.show *,
+  .campaign-page .payment-reminder-modal.is-closing,
+  .campaign-page .payment-reminder-modal.is-closing *,
+  .campaign-page #successModal.show,
+  .campaign-page #successModal.show *{
+    animation:none!important;
+    transition:none!important;
+  }
 }
