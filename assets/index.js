@@ -8,9 +8,18 @@ let latestCode = "";
 const PUBLIC_CACHE_KEY = "spari_public_config_v8";
 const PUBLIC_CACHE_TTL = 2 * 60 * 1000;
 const QR_SRC = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
-const SITE_DATA = window.SPARI_SITE_DATA || {};
-const PAYMENT_WA = SITE_DATA.paymentWhatsapp || "6285813035634";
-const EVENT_META = SITE_DATA.eventMeta || {};
+function getSiteData() {
+  return window.SPARI_SITE_DATA || {};
+}
+
+function getEventMeta(eventId) {
+  const data = getSiteData();
+  return data.eventMeta?.[String(eventId)] || null;
+}
+
+function getPaymentWhatsapp() {
+  return getSiteData().paymentWhatsapp || "6285813035634";
+}
 
 registerSW();
 
