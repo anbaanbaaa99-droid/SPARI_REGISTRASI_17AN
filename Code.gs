@@ -41,7 +41,7 @@ const EVENT_HEADERS = [
 const DEFAULT_EVENTS = [
   ["1",1,"E-Sports PS4 eFootball","personal",15000,1,1,false,0,"OPEN","Personal • Seluruh AEON People • Rp15.000 per orang."],
   ["2",2,"Turnamen Futsal","team",100000,6,9,false,0,"OPEN","Department • Minimal 6 peserta, maksimal 9 peserta per tim."],
-  ["3",3,"Basket 3x3","team",100000,3,4,false,0,"OPEN","Mix personal • Minimal 3 peserta, maksimal 4 peserta per tim."],
+  ["3",3,"Basket 3x3","team",100000,3,4,false,0,"OPEN","Mix personal • Rp25.000 per orang."],
   ["4",4,"Badminton Ganda","team",20000,2,2,false,0,"OPEN","Ganda 2 orang • Rp20.000 per tim."],
   ["5",5,"Lomba Nyanyi Single","personal",0,1,3,false,0,"OPEN","Single • Gratis."],
   ["6",6,"Lomba Pindahkan Air dengan Kaki","team",0,5,5,false,0,"OPEN","Mix personal • Minimal 5 peserta • Gratis."],
